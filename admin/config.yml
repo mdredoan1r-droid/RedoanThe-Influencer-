@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "portfolio"
+    label: "Projects"
+    folder: "content/portfolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Category", name: "cat", widget: "select", options: ["Influencer Edits", "Shorts/Reels", "Gaming Videos", "Fantasy Edits", "Promotional Ads", "Motion Graphics"]}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Icon Class", name: "icon", widget: "string", default: "fa-play"}
+      - {label: "YouTube Video URL", name: "videoUrl", widget: "string"}
