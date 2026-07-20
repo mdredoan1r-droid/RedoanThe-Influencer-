@@ -615,9 +615,10 @@ document.querySelectorAll('.mobile-menu a').forEach(a=>a.addEventListener('click
 /* CMS Live Sync Script */
 async function syncCMS() {
   try {
-    const res = await fetch('/content/hero.json');
-    if(res.ok) {
-      const hero = await res.json();
+    // 1. Hero Data Sync
+    const heroRes = await fetch('/content/hero.json');
+    if(heroRes.ok) {
+      const hero = await heroRes.json();
       if(hero.hero_tag) document.getElementById('heroTag').innerHTML = `<span class="dot"></span> ` + hero.hero_tag;
       if(hero.hero_title) {
         let titleHtml = hero.hero_title;
@@ -628,7 +629,30 @@ async function syncCMS() {
       }
       if(hero.hero_subtitle) document.getElementById('heroSub').innerText = hero.hero_subtitle;
     }
-  } catch(e) {}
+
+    // 2. Site / Profile Photo & Logo Sync
+    const siteRes = await fetch('/content/site.json');
+    if(siteRes.ok) {
+      const site = await siteRes.json();
+      
+      // Update Hero Image / Profile Photo
+      if(site.profile_photo || site.logo) {
+        const logoImg = document.getElementById('siteLogo');
+        if(logoImg) {
+          logoImg.src = site.profile_photo || site.logo;
+        }
+      }
+      
+      // Update Site Name / Text Logo
+      if(site.site_title || site.logo_text) {
+        document.querySelectorAll('.logo').forEach(el => {
+          el.innerHTML = (site.site_title || site.logo_text) + '<span>.</span>';
+        });
+      }
+    }
+  } catch(e) {
+    console.log("CMS Syncing...");
+  }
 }
 document.addEventListener('DOMContentLoaded', syncCMS);
 </script>
