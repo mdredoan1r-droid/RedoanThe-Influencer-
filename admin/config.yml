@@ -6,29 +6,88 @@ media_folder: "images"
 public_folder: "images"
 
 collections:
-  # ১. হোমপেজ এবং সাইটের তথ্য এডিট করার সেকশন
+  # ==========================================
+  # ১. সম্পূর্ণ সাইটের গ্লোবাল সেটিংস এবং কন্টেন্ট
+  # ==========================================
   - name: "settings"
-    label: "Site Settings & Content"
+    label: "Site Customization (Full Website)"
     delete: false
     editor:
       preview: false
     files:
       - file: "content/site.json"
-        label: "Homepage Content & Settings"
-        name: "homepage"
+        label: "General Settings & Navigation"
+        name: "general"
         fields:
-          - { label: "Website Title", name: "site_title", widget: "string", default: "Redoan - Video Editor & Motion Graphics" }
+          - { label: "Website Tab Title", name: "site_title", widget: "string", default: "Redoan - Video Editor & Motion Graphics" }
           - { label: "Logo Image", name: "logo", widget: "image", required: false }
-          - { label: "Hero Title", name: "hero_title", widget: "string", default: "Transforming Raw Footage Into High-Retention Stories." }
-          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text", default: "Professional Video Editing, Motion Graphics and Short-form Content..." }
-          - { label: "About Text", name: "about_text", widget: "text", required: false }
-          - { label: "Profile Photo", name: "profile_image", widget: "image", required: false }
-          - { label: "Contact Email", name: "contact_email", widget: "string", required: false }
-          - { label: "WhatsApp Number", name: "whatsapp", widget: "string", required: false }
+          - { label: "Logo Text / Brand Name", name: "logo_text", widget: "string", default: "REDOAN." }
+          - { label: "Navigation Links", name: "nav_links", widget: "list", fields: [
+              { label: "Label", name: "label", widget: "string" },
+              { label: "Target ID/Link (e.g. #about)", name: "link", widget: "string" }
+            ]}
+          - { label: "Nav CTA Button Text", name: "nav_cta_text", widget: "string", default: "Hire Me" }
+          - { label: "Nav CTA Button Link", name: "nav_cta_link", widget: "string", default: "#contact" }
 
-  # ২. প্রজেক্ট এবং ক্যাটাগরি ম্যানেজ করার সেকশন
+      - file: "content/hero.json"
+        label: "Hero Section (Main Banner)"
+        name: "hero"
+        fields:
+          - { label: "Tag Text", name: "hero_tag", widget: "string", default: "Available for freelance projects" }
+          - { label: "Main Headline / Title", name: "hero_title", widget: "string", default: "Transforming Raw Footage Into High-Retention Stories." }
+          - { label: "Highlighted Word(s)", name: "hero_title_highlight", widget: "string", default: "High-Retention" }
+          - { label: "Subheading / Description", name: "hero_subtitle", widget: "text" }
+          - { label: "Primary Button Text", name: "btn_primary_text", widget: "string", default: "View Portfolio" }
+          - { label: "Primary Button Link", name: "btn_primary_link", widget: "string", default: "#portfolio" }
+          - { label: "Secondary Button Text", name: "btn_secondary_text", widget: "string", default: "Hire Me" }
+          - { label: "Secondary Button Link", name: "btn_secondary_link", widget: "string", default: "#contact" }
+
+      - file: "content/about.json"
+        label: "About Me Section"
+        name: "about"
+        fields:
+          - { label: "Section Badge Title", name: "badge", widget: "string", default: "ABOUT ME" }
+          - { label: "Headline Title", name: "title", widget: "string", default: "Crafting Visual Experiences That Engage & Convert" }
+          - { label: "Profile Photo", name: "profile_image", widget: "image" }
+          - { label: "Detailed Bio / Description", name: "description", widget: "markdown" }
+          - { label: "Key Highlights / Skills Badges", name: "skills", widget: "list", field: { label: "Skill / Badge", name: "skill", widget: "string" } }
+          - { label: "Statistics (Counters)", name: "stats", widget: "list", fields: [
+              { label: "Number / Value (e.g. 500+)", name: "number", widget: "string" },
+              { label: "Label (e.g. Videos Edited)", name: "label", widget: "string" }
+            ]}
+
+      - file: "content/services.json"
+        label: "Services Section"
+        name: "services"
+        fields:
+          - { label: "Section Badge", name: "badge", widget: "string", default: "SERVICES" }
+          - { label: "Section Title", name: "title", widget: "string", default: "What I Do Best" }
+          - { label: "Services List", name: "items", widget: "list", fields: [
+              { label: "Service Title", name: "title", widget: "string" },
+              { label: "Short Description", name: "description", widget: "text" },
+              { label: "Icon Class / Name", name: "icon", widget: "string", required: false }
+            ]}
+
+      - file: "content/contact.json"
+        label: "Contact & Footer Info"
+        name: "contact"
+        fields:
+          - { label: "Contact Section Title", name: "title", widget: "string", default: "Let's Build Something Viral Together" }
+          - { label: "Contact Subtitle", name: "subtitle", widget: "text" }
+          - { label: "Email Address", name: "email", widget: "string" }
+          - { label: "WhatsApp / Phone", name: "phone", widget: "string", required: false }
+          - { label: "Location", name: "location", widget: "string", default: "Dhaka, Bangladesh" }
+          - { label: "Social Media Links", name: "socials", widget: "list", fields: [
+              { label: "Platform Name (e.g. YouTube, Facebook, Twitter)", name: "platform", widget: "string" },
+              { label: "URL / Profile Link", name: "url", widget: "string" }
+            ]}
+          - { label: "Footer Copyright Text", name: "footer_copy", widget: "string", default: "© 2026 Redoan. All rights reserved." }
+
+  # ==========================================
+  # ২. পোর্টফোলিও প্রজেক্ট ও ক্যাটাগরি ম্যানেজার
+  # ==========================================
   - name: "projects"
-    label: "Projects"
+    label: "Projects & Portfolio"
     folder: "content/projects"
     create: true
     slug: "{{slug}}"
@@ -36,7 +95,23 @@ collections:
       - { label: "Project Title", name: "title", widget: "string" }
       - { label: "Category", name: "category", widget: "select", options: ["Shorts & Reels", "YouTube Videos", "Gaming Edits", "Motion Graphics", "Color Grading"] }
       - { label: "Thumbnail Image", name: "thumbnail", widget: "image" }
-      - { label: "Video Link (YouTube/Vimeo/Drive)", name: "video_url", widget: "string" }
+      - { label: "Video URL / Embed Code", name: "video_url", widget: "string" }
+      - { label: "Client Name", name: "client", widget: "string", required: false }
       - { label: "Description", name: "description", widget: "text", required: false }
-      - { label: "Featured Project?", name: "featured", widget: "boolean", default: false }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured on Homepage?", name: "featured", widget: "boolean", default: true }
+      - { label: "Date Added", name: "date", widget: "datetime" }
+
+  # ==========================================
+  # ৩. ক্লায়েন্ট রিভিউ ও টেস্টিনোনিয়ালস
+  # ==========================================
+  - name: "reviews"
+    label: "Reviews & Testimonials"
+    folder: "content/reviews"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Client Name", name: "name", widget: "string" }
+      - { label: "Designation / Channel Name", name: "role", widget: "string" }
+      - { label: "Avatar / Photo", name: "avatar", widget: "image", required: false }
+      - { label: "Review Message", name: "comment", widget: "text" }
+      - { label: "Rating (1 to 5)", name: "rating", widget: "number", default: 5, value_type: "int" }
