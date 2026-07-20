@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redoan — Video Editor  Motion Graphics & Thumbnail Designer</title>
+<title>Redoan — Video Editor Motion Graphics & Thumbnail Designer</title>
 <meta name="description" content="Redoan is a professional video editor and motion graphics designer specializing in YouTube videos, viral shorts, gaming edits and cinematic storytelling.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <style>
 :root{
   --bg:#050506;
@@ -403,15 +403,15 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-tag"><span class="dot"></span> Available for freelance projects</div>
- <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-   <img src="logo.png" alt="Logo" class="w-32 h-auto md:w-40">
-    <h1 class="reveal in-view">Transforming Raw Footage Into <span class="highlight">High-Retention Stories.</span></h1>
-</div>
-  <p class="reveal in-view" style="transition-delay:.15s;">Professional Video Editing, Motion Graphics and Short-form Content that helps creators grow faster — built for YouTubers, personal brands and businesses.</p>
+  <div class="hero-tag" id="heroTag"><span class="dot"></span> Available for freelance projects</div>
+  <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+    <img src="logo.png" alt="Logo" class="w-32 h-auto md:w-40" id="siteLogo">
+    <h1 class="reveal in-view" id="heroTitle">Transforming Raw Footage Into <span class="highlight">High-Retention Stories.</span></h1>
+  </div>
+  <p class="reveal in-view" id="heroSub" style="transition-delay:.15s;">Professional Video Editing, Motion Graphics and Short-form Content that helps creators grow faster — built for YouTubers, personal brands and businesses.</p>
   <div class="hero-buttons reveal in-view" style="transition-delay:.3s;">
-    <a href="#portfolio" class="btn btn-primary"><i class="fa-solid fa-play"></i> View Portfolio</a>
-    <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
+    <a href="#portfolio" class="btn btn-primary" id="btnPrimary"><i class="fa-solid fa-play"></i> View Portfolio</a>
+    <a href="#contact" class="btn btn-outline" id="btnSecondary"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
   </div>
   <div class="scroll-indicator"><div class="mouse"></div> SCROLL</div>
 </section>
@@ -457,7 +457,9 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
     <p class="sec-desc" style="margin:0 auto;">End-to-end video editing and motion design services tailored for creators and brands who want to stand out.</p>
   </div>
   <div class="services-grid">
-    <!-- cards generated -->
+    <div class="service-card"><div class="service-num">01</div><div class="service-icon"><i class="fa-solid fa-video"></i></div><h3>YouTube Video Editing</h3><p>High-retention storytelling, sound design, pacing & graphics optimized for watch time.</p></div>
+    <div class="service-card"><div class="service-num">02</div><div class="service-icon"><i class="fa-solid fa-mobile-screen"></i></div><h3>Shorts & Reels</h3><p>Fast-paced, hook-driven vertical content designed for maximum engagement & virality.</p></div>
+    <div class="service-card"><div class="service-num">03</div><div class="service-icon"><i class="fa-solid fa-gamepad"></i></div><h3>Gaming Edits</h3><p>High-energy montages, funny moments & cinematic gameplay highlights.</p></div>
   </div>
 </section>
 
@@ -468,7 +470,11 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
     <h2 class="sec-title">Software & Skills</h2>
     <p class="sec-desc" style="margin:0 auto;">Industry-standard tools used daily to craft cinematic and high-retention content.</p>
   </div>
-  <div class="software-grid" id="softwareGrid"></div>
+  <div class="software-grid" id="softwareGrid">
+    <div class="soft-card glass"><i class="fa-solid fa-film soft-icon"></i><h4>Adobe Premiere Pro</h4><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><span class="soft-pct">Advanced</span></div>
+    <div class="soft-card glass"><i class="fa-solid fa-wand-magic-sparkles soft-icon"></i><h4>After Effects</h4><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="soft-pct">Expert</span></div>
+    <div class="soft-card glass"><i class="fa-solid fa-scissors soft-icon"></i><h4>CapCut Pro</h4><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><span class="soft-pct">Master</span></div>
+  </div>
 </section>
 
 <!-- PORTFOLIO -->
@@ -478,17 +484,20 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
     <h2 class="sec-title">Portfolio Showcase</h2>
     <p class="sec-desc" style="margin:0 auto;">A curated collection of edits across YouTube, Shorts, Gaming, Motion Graphics and Commercial content.</p>
   </div>
-  <div class="filter-row reveal" id="filterRow" style="justify-content:center;"></div>
-  <div class="portfolio-grid" id="portfolioGrid"></div>
+  <div class="portfolio-grid" style="margin-top:40px;">
+    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">YouTube</span><h4 class="p-title">Retention Storytelling Edit</h4></div><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
+    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">Shorts</span><h4 class="p-title">Viral Hook Short Edit</h4></div><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
+    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">Gaming</span><h4 class="p-title">Cinematic Gameplay Highlights</h4></div><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
+  </div>
 </section>
 
 <!-- STATS -->
 <section id="stats">
   <div class="stats-wrap glass reveal">
-    <div class="stat"><h3 data-count="20">0</h3><p>Projects Completed</p></div>
-    <div class="stat"><h3 data-count="98">0</h3><p>Hours Edited</p></div>
-    <div class="stat"><h3 data-count="16">0</h3><p>Happy Clients</p></div>
-    <div class="stat"><h3 data-count="20">0</h3><p>Videos Delivered</p></div>
+    <div class="stat"><h3>20+</h3><p>Projects Completed</p></div>
+    <div class="stat"><h3>100+</h3><p>Hours Edited</p></div>
+    <div class="stat"><h3>15+</h3><p>Happy Clients</p></div>
+    <div class="stat"><h3>50+</h3><p>Videos Delivered</p></div>
   </div>
 </section>
 
@@ -504,39 +513,8 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
       <p class="testi-text">"Redoan completely transformed the pacing of my videos. My watch time jumped noticeably within a month. Incredibly professional and fast."</p>
       <div class="testi-avatar">JD</div>
       <div class="testi-name">James D.</div>
-      <div class="testi-role">YouTuber, Tech Channel — 320K subs</div>
+      <div class="testi-role">YouTuber — 320K subs</div>
     </div>
-    <div class="testi-slide glass">
-      <i class="fa-solid fa-quote-left"></i>
-      <p class="testi-text">"The motion graphics work was next level. He understood our brand instantly and delivered beyond expectations, on time, every time."</p>
-      <div class="testi-avatar">SM</div>
-      <div class="testi-name">Sarah M.</div>
-      <div class="testi-role">Marketing Lead, Agency</div>
-    </div>
-    <div class="testi-slide glass">
-      <i class="fa-solid fa-quote-left"></i>
-      <p class="testi-text">"Best editor I've worked with for Shorts. Retention-focused cuts and clean captions — my views tripled within weeks."</p>
-      <div class="testi-avatar">AK</div>
-      <div class="testi-name">Aman K.</div>
-      <div class="testi-role">Content Creator, Gaming</div>
-    </div>
-    <div class="testi-dots" id="testiDots"></div>
-  </div>
-</section>
-
-<!-- WHY CHOOSE -->
-<section id="why">
-  <div class="reveal" style="text-align:center;">
-    <div class="eyebrow">Why Choose Me</div>
-    <h2 class="sec-title">Built For Creators Who Take Growth Seriously</h2>
-  </div>
-  <div class="why-grid">
-    <div class="why-card reveal"><i class="fa-solid fa-film"></i><h3>Cinematic Editing Style</h3><p>Every project treated with a film-grade visual approach.</p></div>
-    <div class="why-card reveal" style="transition-delay:.05s;"><i class="fa-solid fa-eye"></i><h3>Retention-Based Editing</h3><p>Structured pacing designed to keep viewers watching.</p></div>
-    <div class="why-card reveal" style="transition-delay:.1s;"><i class="fa-solid fa-gauge-high"></i><h3>Fast Delivery</h3><p>Reliable turnaround without sacrificing quality.</p></div>
-    <div class="why-card reveal" style="transition-delay:.15s;"><i class="fa-solid fa-lightbulb"></i><h3>Creative Storytelling</h3><p>Narrative-driven edits that connect with audiences.</p></div>
-    <div class="why-card reveal" style="transition-delay:.2s;"><i class="fa-solid fa-diagram-project"></i><h3>Professional Workflow</h3><p>Organized process from brief to final delivery.</p></div>
-    <div class="why-card reveal" style="transition-delay:.25s;"><i class="fa-solid fa-comment-dots"></i><h3>Reliable Communication</h3><p>Clear, consistent updates throughout every project.</p></div>
   </div>
 </section>
 
@@ -564,12 +542,10 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
       <div class="social-row">
         <a href="#"><i class="fa-brands fa-instagram"></i></a>
         <a href="#"><i class="fa-brands fa-youtube"></i></a>
-        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-        <a href="#"><i class="fa-brands fa-behance"></i></a>
-        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
       </div>
     </div>
-    <form class="glass reveal" style="padding:34px;" id="contactForm" style="transition-delay:.1s;">
+    <form class="glass reveal" style="padding:34px;" id="contactForm">
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" placeholder="John Doe" required>
@@ -577,15 +553,6 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
       <div class="form-group">
         <label>Email Address</label>
         <input type="email" placeholder="john@example.com" required>
-      </div>
-      <div class="form-group">
-        <label>Project Type</label>
-        <select>
-          <option>Influencer Edits</option>
-          <option>Fantasy Edits</option>
-          <option>Promotional Ads</option>
-          <option>Motion Graphics</option>
-        </select>
       </div>
       <div class="form-group">
         <label>Message</label>
@@ -613,7 +580,7 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
     <a href="#home" class="back-top"><i class="fa-solid fa-arrow-up"></i></a>
   </div>
   <div class="footer-bottom">
-    <p>© 2024 Redoan Edits. All rights reserved.</p>
+    <p>© 2026 Redoan Edits. All rights reserved.</p>
     <p>Crafted with precision, timed to perfection.</p>
   </div>
 </footer>
@@ -635,10 +602,6 @@ function animateRing(){
   requestAnimationFrame(animateRing);
 }
 animateRing();
-document.querySelectorAll('a,button,.filter-btn,.p-card,.soft-card,input,textarea,select').forEach(el=>{
-  el.addEventListener('mouseenter',()=>ring.classList.add('hovered'));
-  el.addEventListener('mouseleave',()=>ring.classList.remove('hovered'));
-});
 
 /* Mobile menu */
 const burger=document.getElementById('burger');
@@ -649,182 +612,26 @@ burger.addEventListener('click',()=>{
 });
 document.querySelectorAll('.mobile-menu a').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.remove('open')));
 
-/* Reveal on scroll */
-const revealEls=document.querySelectorAll('.reveal');
-const io=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){entry.target.classList.add('in-view');}
-  });
-},{threshold:0.15});
-revealEls.forEach(el=>io.observe(el));
-
-/* Services data */
-const services=[
-  {icon:'fa-youtube',title:'YouTube Video Editing',desc:'Full-length videos edited for maximum retention & storytelling.'},
-  {icon:'fa-bolt',title:'Shorts/Reels Editing',desc:'Fast-paced, scroll-stopping short-form content.'},
-  {icon:'fa-gamepad',title:'Gaming Video Editing',desc:'High-energy edits synced with in-game action.'},
-  {icon:'fa-person',title:'Talking Head Editing',desc:'Clean, punchy edits for podcasts & vlogs.'},
-  {icon:'fa-shapes',title:'Motion Graphics',desc:'Custom animated graphics, titles & lower thirds.'},
-  {icon:'fa-palette',title:'Color Grading',desc:'Cinematic color correction & grading for mood.'},
-  {icon:'fa-image',title:'Thumbnail Design',desc:'High CTR thumbnails designed to convert clicks.'},
-  {icon:'fa-volume-high',title:'Sound Design',desc:'SFX, mixing & mastering for immersive audio.'},
-  {icon:'fa-closed-captioning',title:'Subtitles & Captions',desc:'Accurate, styled captions for accessibility & reach.'},
-  {icon:'fa-share-nodes',title:'Social Media Editing',desc:'Platform-optimized content for every channel.'}
-];
-const servicesGrid=document.querySelector('.services-grid');
-services.forEach((s,i)=>{
-  const card=document.createElement('div');
-  card.className='service-card reveal';
-  card.style.transitionDelay=(i*0.05)+'s';
-  card.innerHTML=`<span class="service-num">${(i+1).toString().padStart(2,'0')}</span>
-    <div class="service-icon"><i class="fa-solid ${s.icon}"></i></div>
-    <h3>${s.title}</h3><p>${s.desc}</p>`;
-  servicesGrid.appendChild(card);
-  io.observe(card);
-});
-
-/* Software */
-const software=[
-  {name:'Premiere Pro',icon:'fa-solid fa-film',pct:95},
-  {name:'After Effects',icon:'fa-solid fa-wand-magic-sparkles',pct:90},
-  {name:'Photoshop',icon:'fa-solid fa-image',pct:85},
-  {name:'CapCut',icon:'fa-solid fa-bolt',pct:92},
-  {name:'DaVinci Resolve',icon:'fa-solid fa-palette',pct:80}
-];
-const softwareGrid=document.getElementById('softwareGrid');
-software.forEach((s,i)=>{
-  const card=document.createElement('div');
-  card.className='soft-card glass reveal';
-  card.style.transitionDelay=(i*0.06)+'s';
-  card.innerHTML=`<i class="${s.icon} soft-icon"></i><h4>${s.name}</h4>
-    <div class="bar-track"><div class="bar-fill" data-pct="${s.pct}"></div></div>
-    <span class="soft-pct">${s.pct}% Proficiency</span>`;
-  softwareGrid.appendChild(card);
-  io.observe(card);
-});
-const barIO=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const bar=entry.target.querySelector('.bar-fill');
-      if(bar) bar.style.width=bar.dataset.pct+'%';
-    }
-  });
-},{threshold:0.4});
-document.querySelectorAll('.soft-card').forEach(c=>barIO.observe(c));
-
-/*/* Portfolio */
-const categories=['All', 'Influencer Edits', 'Fantasy Edits', 'Promotional Ads', 'Motion Graphics'];
-const portfolioItems=[
-  {cat:'Influencer Edits', title:'Influencer Video One', icon:'fa-play', videoUrl:'https://www.youtube.com/watch?v=AmnjZTCSnYQ'},
-  {cat:'Influencer Edits', title:'Influencer Video Two', icon:'fa-play', videoUrl:'YOUR_YOUTUBE_EMBED_LINK_2'},
-  {cat:'Influencer Edits', title:'Storytelling Long-form Edit', icon:'fa-play', videoUrl:'https://youtu.be/CQZx1fn0lmE?si=AJfTgjRJbGbWA7z_'},
-  {cat:'Shorts/Reels', title:'High Retention Short-form Edit', icon:'fa-bolt', videoUrl:'https://youtube.com/shorts/RTKsIPolTRM?feature=share'},
-  {cat:'Gaming Videos', title:'Gaming Cinematic Edit', icon:'fa-gamepad', videoUrl:'https://youtu.be/uUkG0MuxdGc?si=m-TxzxDB4Xj2plMM'},
-  {cat:'Fantasy Edits', title:'Fantasy Video One', icon:'fa-wand-magic-sparkles', videoUrl:'YOUR_YOUTUBE_EMBED_LINK_3'},
-  {cat:'Fantasy Edits', title:'Fantasy Video Two', icon:'fa-wand-magic-sparkles', videoUrl:'YOUR_YOUTUBE_EMBED_LINK_4'},
-  {cat:'Promotional Ads', title:'AI Promotional Ad', icon:'fa-bullhorn', videoUrl:'YOUR_YOUTUBE_EMBED_LINK_5'},
-  {cat:'Motion Graphics', title:'Motion Graphics One', icon:'fa-shapes', videoUrl:'YOUR_YOUTUBE_EMBED_LINK_6'},
-  {cat:'Motion Graphics', title:'Motion Graphics Two', icon:'fa-shapes', videoUrl:'YOUR_YOUTUBE_EMBED_LINK_7'}
-];
-
-const filterRow=document.getElementById('filterRow');
-const portfolioGrid=document.getElementById('portfolioGrid');
-const filterCats=['All', 'Influencer Edits', 'Shorts/Reels', 'Gaming Videos', 'Fantasy Edits', 'Promotional Ads', 'Motion Graphics'];
-
-filterCats.forEach((cat,i)=>{
-  const btn=document.createElement('button');
-  btn.className='filter-btn'+(i===0?' active':'');
-  btn.textContent=cat;
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    filterPortfolio(cat);
-  });
-  filterRow.appendChild(btn);
-});
-function renderPortfolio(filter){
-  portfolioGrid.innerHTML='';
-  const items = filter==='All' ? portfolioItems : portfolioItems.filter(p=>p.cat===filter);
-  items.forEach((p,i)=>{
-    const card=document.createElement('div');
-    card.className='p-card reveal in-view';
-    // মাউস নিলে যাতে হাতের চিহ্ন (Pointer) আসে
-    card.style.cursor='pointer'; 
-    card.innerHTML=`<div class="thumb"><i class="fa-solid ${p.icon}"></i></div>
-        <div class="play-btn"><i class="fa-solid fa-play"></i></div>
-        <div class="p-overlay"><div class="p-tag">${p.cat}</div><div class="p-title">${p.title}</div></div>`;
-    
-    // কার্ডে ক্লিক করলে ইউটিউব লিংক ওপেন হবে
-    card.addEventListener('click', ()=>{
-      if(p.videoUrl && !p.videoUrl.includes('YOUR_YOUTUBE_EMBED_LINK')){
-        window.open(p.videoUrl, '_blank');
-      } else {
-        alert('অনুগ্রহ করে এই ক্যাটাগরির জন্য আপনার আসল ইউটিউব লিংকটি কোডের ওপরে বসিয়ে দিন!');
+/* CMS Live Sync Script */
+async function syncCMS() {
+  try {
+    const res = await fetch('/content/hero.json');
+    if(res.ok) {
+      const hero = await res.json();
+      if(hero.hero_tag) document.getElementById('heroTag').innerHTML = `<span class="dot"></span> ` + hero.hero_tag;
+      if(hero.hero_title) {
+        let titleHtml = hero.hero_title;
+        if(hero.hero_title_highlight) {
+          titleHtml = titleHtml.replace(hero.hero_title_highlight, `<span class="highlight">${hero.hero_title_highlight}</span>`);
+        }
+        document.getElementById('heroTitle').innerHTML = titleHtml;
       }
-    });
-
-    portfolioGrid.appendChild(card);
-  });
-}
-renderPortfolio('All');
-
-/* Stats Counter */
-const statEls=document.querySelectorAll('[data-count]');
-const statIO=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const el=entry.target;
-      const target=+el.dataset.count;
-      let cur=0;
-      const step=Math.max(1,Math.ceil(target/80));
-      const timer=setInterval(()=>{
-        cur+=step;
-        if(cur>=target){cur=target;clearInterval(timer);}
-        el.textContent=cur.toLocaleString()+ (target>100?'+':'');
-      },20);
-      statIO.unobserve(el);
+      if(hero.hero_subtitle) document.getElementById('heroSub').innerText = hero.hero_subtitle;
     }
-  });
-},{threshold:0.5});
-statEls.forEach(el=>statIO.observe(el));
-
-/* Testimonial carousel */
-const slides=document.querySelectorAll('.testi-slide');
-const dotsWrap=document.getElementById('testiDots');
-let currentSlide=0;
-slides.forEach((s,i)=>{
-  const d=document.createElement('div');
-  d.className='tdot'+(i===0?' active':'');
-  d.addEventListener('click',()=>goToSlide(i));
-  dotsWrap.appendChild(d);
-});
-function goToSlide(i){
-  slides[currentSlide].classList.remove('active');
-  document.querySelectorAll('.tdot')[currentSlide].classList.remove('active');
-  currentSlide=i;
-  slides[currentSlide].classList.add('active');
-  document.querySelectorAll('.tdot')[currentSlide].classList.add('active');
+  } catch(e) {}
 }
-setInterval(()=>{
-  goToSlide((currentSlide+1)%slides.length);
-},5000);
-
-/* Contact form */
-document.getElementById('contactForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  const btn=this.querySelector('.submit-btn');
-  const original=btn.innerHTML;
-  btn.innerHTML='Message Sent <i class="fa-solid fa-check"></i>';
-  btn.style.background='var(--red)';
-  setTimeout(()=>{btn.innerHTML=original;this.reset();},2500);
-});
-
-/* Nav background on scroll */
-window.addEventListener('scroll',()=>{
-  const nav=document.querySelector('nav');
-  if(window.scrollY>50){nav.style.padding='10px 5%';}
-  else{nav.style.padding='18px 5%';}
-});
+document.addEventListener('DOMContentLoaded', syncCMS);
 </script>
+
 </body>
 </html>
