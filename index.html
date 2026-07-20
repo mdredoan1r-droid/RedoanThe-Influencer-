@@ -4,11 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Redoan — Motion Graphics & Video Editor</title>
-<meta name="description" content="Redoan is a professional video editor specializing in YouTube edits, viral shorts, and high-retention motion design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<!-- AOS Scroll Reveal CSS -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -16,7 +14,7 @@
 <style>
 :root{
   --bg:#030304;
-  --bg-panel:rgba(18, 18, 22, 0.65);
+  --bg-panel:rgba(18, 18, 22, 0.75);
   --red:#ff1f3d;
   --red-glow:rgba(255, 31, 61, 0.6);
   --white:#ffffff;
@@ -29,39 +27,22 @@ body{
   color:var(--white);
   font-family:'Inter',sans-serif;
   overflow-x:hidden;
-  cursor:none;
 }
 h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
 ::selection{background:var(--red);color:#000;}
 
-/* Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar{width:8px;}
 ::-webkit-scrollbar-track{background:#050507;}
 ::-webkit-scrollbar-thumb{background:var(--red);border-radius:10px;box-shadow:0 0 10px var(--red-glow);}
 
-/* Glow Cursor */
-.cursor-dot, .cursor-ring{
-  position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
-  border-radius:50%;transform:translate(-50%,-50%);
-}
-.cursor-dot{
-  width:8px;height:8px;background:var(--red);
-  box-shadow:0 0 15px var(--red), 0 0 30px var(--red);
-}
-.cursor-ring{
-  width:42px;height:42px;border:1.5px solid var(--red-glow);
-  box-shadow:0 0 20px rgba(255, 31, 61, 0.2), inset 0 0 15px rgba(255, 31, 61, 0.1);
-  transition:width .25s ease, height .25s ease, border-color .25s, background .25s;
-}
-@media(max-width:900px){.cursor-dot,.cursor-ring{display:none;} body{cursor:auto;}}
-
-/* Preloader */
+/* Preloader Fix */
 #preloader{
   position:fixed;inset:0;background:#030304;z-index:99999;
   display:flex;align-items:center;justify-content:center;flex-direction:column;
-  transition:opacity .6s ease, visibility .6s ease;
+  transition:opacity .5s ease, visibility .5s ease;
 }
-#preloader.hide{opacity:0;visibility:hidden;}
+#preloader.hide{opacity:0;visibility:hidden;pointer-events:none;}
 .loader-logo{font-size:2.8rem;font-weight:800;letter-spacing:3px;color:var(--white);}
 .loader-logo span{color:var(--red);text-shadow:0 0 25px var(--red);}
 .loader-bar{width:240px;height:3px;background:#131418;margin-top:25px;overflow:hidden;position:relative;border-radius:4px;}
@@ -73,7 +54,7 @@ h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
 }
 @keyframes loadmove{0%{left:-50%;}100%{left:100%;}}
 
-/* Dynamic BG */
+/* Dynamic Background */
 .bg-grid{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(255, 31, 61, 0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255, 31, 61, 0.05) 1px,transparent 1px);
@@ -81,135 +62,125 @@ h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
   mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 80%);
 }
 .glow-orb{
-  position:fixed;border-radius:50%;filter:blur(140px);opacity:.45;pointer-events:none;
-  animation:floatOrb 10s infinite alternate ease-in-out;
-}
-@keyframes floatOrb{
-  0%{transform:translate(0,0) scale(1);}
-  100%{transform:translate(60px,40px) scale(1.15);}
+  position:fixed;border-radius:50%;filter:blur(140px);opacity:.4;pointer-events:none;
 }
 
-/* Nav */
+/* Navigation */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   padding:20px 6%;display:flex;align-items:center;justify-content:space-between;
-  background:rgba(3, 3, 4, 0.75);backdrop-filter:blur(20px);
+  background:rgba(3, 3, 4, 0.85);backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
 .logo{font-size:1.5rem;font-weight:800;letter-spacing:1.5px;}
 .logo span{color:var(--red);text-shadow:0 0 20px var(--red);}
-.nav-links{display:flex;gap:40px;list-style:none;}
+.nav-links{display:flex;gap:35px;list-style:none;}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:500;transition:.3s ease;}
-.nav-links a:hover{color:var(--white);text-shadow:0 0 12px rgba(255,255,255,0.6);}
+.nav-links a:hover{color:var(--white);}
 .nav-cta{
   padding:10px 24px;border:1px solid var(--red);color:var(--red);border-radius:50px;font-size:.85rem;font-weight:700;
-  text-decoration:none;transition:.4s ease;box-shadow:0 0 15px rgba(255,31,61,0.2);
+  text-decoration:none;transition:.3s ease;box-shadow:0 0 15px rgba(255,31,61,0.2);
 }
-.nav-cta:hover{background:var(--red);color:#000;box-shadow:0 0 30px var(--red);transform:scale(1.05);}
+.nav-cta:hover{background:var(--red);color:#000;box-shadow:0 0 25px var(--red);}
 
-/* Cards */
+/* Glass Cards */
 .glass-card{
   background:var(--bg-panel);
   border:1px solid rgba(255,255,255,0.09);
   border-radius:22px;
   backdrop-filter:blur(16px);
-  transition:all .4s cubic-bezier(.16,1,.3,1);
-  position:relative;
-  overflow:hidden;
+  transition:all .3s ease;
 }
 .glass-card:hover{
   border-color:rgba(255,31,61,0.5);
-  transform:translateY(-7px);
-  box-shadow:0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(255,31,61,0.2);
+  box-shadow:0 10px 30px rgba(0,0,0,0.8), 0 0 25px rgba(255,31,61,0.15);
 }
 
-section{position:relative;z-index:1;padding:130px 6%;}
+section{position:relative;z-index:1;padding:120px 6%;}
 .eyebrow{
   display:inline-flex;align-items:center;gap:10px;color:var(--red);font-size:.8rem;
-  letter-spacing:3.5px;text-transform:uppercase;font-weight:700;margin-bottom:18px;
+  letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:15px;
 }
-.sec-title{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.1;margin-bottom:20px;}
-.sec-desc{color:var(--muted);max-width:620px;font-size:1.1rem;line-height:1.7;}
+.sec-title{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;line-height:1.1;}
 
-/* Hero */
+/* Hero Section */
 .hero{
   min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  padding-top:130px;
+  padding-top:100px;
 }
 .hero-tag{
-  display:inline-flex;align-items:center;gap:10px;padding:9px 22px;border:1px solid rgba(255,31,61,0.4);
-  border-radius:50px;font-size:.85rem;color:#ff8093;background:rgba(255,31,61,0.08);margin-bottom:32px;
+  display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border:1px solid rgba(255,31,61,0.4);
+  border-radius:50px;font-size:.85rem;color:#ff8093;background:rgba(255,31,61,0.08);margin-bottom:28px;
 }
-.hero h1{font-size:clamp(2.5rem,7vw,5.6rem);font-weight:800;line-height:1.06;max-width:1100px;}
+.hero h1{font-size:clamp(2.5rem,6vw,5.2rem);font-weight:800;line-height:1.1;max-width:1000px;}
 .hero h1 .highlight{
   background:linear-gradient(90deg,#ffffff,var(--red),#ff758c);-webkit-background-clip:text;background-clip:text;color:transparent;
 }
 
 .btn{
-  padding:16px 36px;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;
-  display:inline-flex;align-items:center;gap:12px;transition:.4s ease;
+  padding:15px 32px;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;transition:.3s ease;
 }
-.btn-primary{background:var(--red);color:#000;box-shadow:0 0 35px var(--red-glow);}
-.btn-primary:hover{transform:translateY(-4px);box-shadow:0 12px 50px rgba(255,31,61,0.8);}
+.btn-primary{background:var(--red);color:#000;box-shadow:0 0 30px var(--red-glow);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(255,31,61,0.7);}
 .btn-outline{border:1px solid rgba(255,255,255,0.25);color:var(--white);}
-.btn-outline:hover{border-color:var(--red);color:var(--red);transform:translateY(-4px);}
+.btn-outline:hover{border-color:var(--red);color:var(--red);transform:translateY(-3px);}
 
-/* Grid & Items */
-.about-wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:75px;align-items:center;}
+/* Grid System */
+.about-wrap{display:grid;grid-template-columns:0.8fr 1.2fr;gap:60px;align-items:center;}
 @media(max-width:900px){.about-wrap{grid-template-columns:1fr;}}
 
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;margin-top:60px;}
-.service-card{padding:36px 30px;}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:50px;}
+.service-card{padding:32px 26px;}
 .service-icon{
-  width:60px;height:60px;border-radius:16px;background:rgba(255,31,61,0.1);
-  display:flex;align-items:center;justify-content:center;margin-bottom:24px;
-  color:var(--red);font-size:1.5rem;border:1px solid rgba(255,31,61,0.3);
+  width:55px;height:55px;border-radius:14px;background:rgba(255,31,61,0.1);
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+  color:var(--red);font-size:1.4rem;border:1px solid rgba(255,31,61,0.3);
 }
 
-.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:26px;}
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
 .p-card{
-  position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/10;cursor:pointer;
-  border:1px solid rgba(255,255,255,0.09);transition:all .4s;background:#0d0e11;
+  position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;cursor:pointer;
+  border:1px solid rgba(255,255,255,0.09);transition:all .3s;background:#0d0e11;
 }
-.p-card:hover{border-color:var(--red);box-shadow:0 0 35px rgba(255,31,61,0.3);transform:scale(1.02);}
+.p-card:hover{border-color:var(--red);transform:scale(1.02);}
 .p-card img{width:100%;height:100%;object-fit:cover;}
 .p-card .thumb{
   position:absolute;inset:0;background:linear-gradient(150deg,#181a20,#08090b);
   display:flex;align-items:center;justify-content:center;
 }
-.p-card .thumb i{font-size:2.6rem;color:rgba(255,255,255,0.3);transition:.3s;}
-.p-card:hover .thumb i{color:var(--red);transform:scale(1.2);}
+.p-card .thumb i{font-size:2.5rem;color:rgba(255,255,255,0.4);transition:.3s;}
+.p-card:hover .thumb i{color:var(--red);transform:scale(1.15);}
 .p-overlay{
-  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;
-  background:linear-gradient(to top,rgba(0,0,0,0.92),transparent 65%);
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;
+  background:linear-gradient(to top,rgba(0,0,0,0.95),transparent 70%);
 }
-.p-tag{color:var(--red);font-size:.75rem;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:6px;font-weight:700;}
-.p-title{font-weight:700;font-size:1.05rem;}
+.p-tag{color:var(--red);font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;font-weight:700;}
+.p-title{font-weight:700;font-size:1rem;}
 
 /* Fullscreen Video Modal */
 .video-modal{
-  position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);
+  position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.92);backdrop-filter:blur(15px);
   display:none;align-items:center;justify-content:center;padding:20px;
 }
 .video-modal.active{display:flex;}
-.video-modal-content{width:100%;max-width:960px;aspect-ratio:16/9;position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--red);box-shadow:0 0 60px var(--red-glow);}
+.video-modal-content{width:100%;max-width:900px;aspect-ratio:16/9;position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--red);box-shadow:0 0 50px var(--red-glow);}
 .close-modal{
-  position:absolute;top:-45px;right:0;color:#fff;font-size:2.2rem;cursor:pointer;transition:.3s;
+  position:absolute;top:-45px;right:0;color:#fff;font-size:2rem;cursor:pointer;
 }
-.close-modal:hover{color:var(--red);}
 
-/* Stats Counter */
+/* Counter Box */
 .stats-wrap{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:65px 6%;border-radius:28px;
-  border:1px solid rgba(255,31,61,0.3);box-shadow:0 0 50px rgba(255,31,61,0.15);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:50px 5%;border-radius:24px;
+  border:1px solid rgba(255,31,61,0.3);box-shadow:0 0 40px rgba(255,31,61,0.1);
 }
-@media(max-width:800px){.stats-wrap{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){.stats-wrap{grid-template-columns:repeat(2,1fr);}}
 .stat{text-align:center;}
-.stat h3{font-size:clamp(2.4rem,5.5vw,3.6rem);color:var(--red);font-family:'Space Grotesk';text-shadow:0 0 25px var(--red);}
-.stat p{color:var(--muted);margin-top:8px;font-size:.9rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;}
+.stat h3{font-size:clamp(2.2rem,5vw,3.2rem);color:var(--red);font-family:'Space Grotesk';text-shadow:0 0 20px var(--red);}
+.stat p{color:var(--muted);margin-top:6px;font-size:.85rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
 
-/* Contact */
-.contact-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:65px;}
+/* Contact Section */
+.contact-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:50px;}
 @media(max-width:900px){.contact-wrap{grid-template-columns:1fr;}}
 </style>
 </head>
@@ -221,15 +192,11 @@ section{position:relative;z-index:1;padding:130px 6%;}
   <div class="loader-bar"></div>
 </div>
 
-<!-- Custom Glow Cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- Background Elements -->
+<!-- Dynamic BG Grid -->
 <div class="bg-grid"></div>
-<div class="glow-orb" style="width:650px;height:650px;background:var(--red);top:-200px;left:-200px;"></div>
+<div class="glow-orb" style="width:500px;height:500px;background:var(--red);top:-150px;left:-150px;"></div>
 
-<!-- NAV -->
+<!-- Navigation Bar -->
 <nav>
   <div class="logo">REDOAN<span>.</span></div>
   <ul class="nav-links">
@@ -244,8 +211,8 @@ section{position:relative;z-index:1;padding:130px 6%;}
 <!-- HERO -->
 <section class="hero" id="home" data-aos="fade-up">
   <div class="hero-tag"><span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Available for freelance projects</div>
-  <h1 class="text-center">Transforming Raw Footage Into <span class="highlight">High-Retention Stories.</span></h1>
-  <p class="mt-6 text-gray-400 max-w-2xl text-lg">Professional Video Editing, Motion Graphics and Short-form Content that helps creators grow faster.</p>
+  <h1>Transforming Raw Footage Into <span class="highlight">High-Retention Stories.</span></h1>
+  <p class="mt-6 text-gray-400 max-w-2xl text-lg">Professional Video Editing, Motion Graphics, and Short-form Content to scale your brand.</p>
   <div class="flex gap-4 mt-8">
     <a href="#portfolio" class="btn btn-primary"><i class="fa-solid fa-play"></i> View Portfolio</a>
     <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
@@ -256,12 +223,12 @@ section{position:relative;z-index:1;padding:130px 6%;}
 <section id="about" data-aos="fade-up">
   <div class="about-wrap">
     <div class="rounded-2xl overflow-hidden border border-red-500/30">
-      <img src="logo.png" alt="Redoan" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x500/111/fff?text=REDOAN'">
+      <img src="logo.png" alt="Redoan" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400/111/fff?text=REDOAN'">
     </div>
     <div>
       <div class="eyebrow">About Me</div>
       <h2 class="sec-title">I'm Redoan — a storyteller behind the timeline.</h2>
-      <p class="sec-desc">I'm a passionate video editor and motion graphics designer focused on retention-driven storytelling. I help YouTubers, gaming creators, and brands turn raw footage into scroll-stopping content.</p>
+      <p class="mt-4 text-gray-400 leading-relaxed">I'm a video editor and motion designer specializing in high-retention content creation. I help YouTubers, gaming creators, and brands turn raw footage into viral hits.</p>
     </div>
   </div>
 </section>
@@ -269,8 +236,8 @@ section{position:relative;z-index:1;padding:130px 6%;}
 <!-- SERVICES -->
 <section id="services">
   <div class="text-center" data-aos="fade-up">
-    <div class="eyebrow">What I Do</div>
-    <h2 class="sec-title">Premium Services</h2>
+    <div class="eyebrow">Services</div>
+    <h2 class="sec-title">What I Offer</h2>
   </div>
   <div class="services-grid">
     <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="100">
@@ -298,15 +265,15 @@ section{position:relative;z-index:1;padding:130px 6%;}
     <h2 class="sec-title">Portfolio Showcase</h2>
   </div>
   <div class="portfolio-grid mt-10" id="portfolioGrid">
-    <!-- Projects loaded dynamically -->
+    <!-- Loaded dynamically -->
   </div>
 </section>
 
-<!-- VIDEO POPUP MODAL -->
+<!-- VIDEO MODAL PLAYER -->
 <div class="video-modal" id="videoModal">
   <div class="video-modal-content">
     <span class="close-modal" id="closeModal">&times;</span>
-    <iframe id="modalIframe" src="" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <iframe id="modalIframe" src="" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -336,7 +303,7 @@ section{position:relative;z-index:1;padding:130px 6%;}
 <section id="contact" data-aos="fade-up">
   <div class="text-center">
     <div class="eyebrow">Get In Touch</div>
-    <h2 class="sec-title">Let's Create Something Great</h2>
+    <h2 class="sec-title">Let's Work Together</h2>
   </div>
   <div class="contact-wrap mt-12">
     <div>
@@ -359,128 +326,108 @@ section{position:relative;z-index:1;padding:130px 6%;}
 </section>
 
 <footer class="p-8 border-t border-white/10 text-center text-gray-500 text-sm mt-20">
-  <p>© 2026 Redoan Edits. All rights reserved.</p>
+  <p>© 2026 Redoan. All rights reserved.</p>
 </footer>
 
-<!-- AOS Scroll Reveal JS Script -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-// Initialize Scroll Animations
-AOS.init({ duration: 900, once: true });
-
-// Preloader
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('preloader')?.classList.add('hide');
-  }, 300);
-});
-
-// Cursor
-const dot = document.getElementById('cursorDot');
-const ring = document.getElementById('cursorRing');
-window.addEventListener('mousemove', e => {
-  if(dot && ring) {
-    dot.style.left = e.clientX + 'px';
-    dot.style.top = e.clientY + 'px';
-    ring.style.left = e.clientX + 'px';
-    ring.style.top = e.clientY + 'px';
+// Instant Preloader Removal System
+function removePreloader() {
+  const loader = document.getElementById('preloader');
+  if(loader) {
+    loader.classList.add('hide');
   }
+}
+// Run immediately when page DOM is ready (Max 1s fallback)
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(removePreloader, 400);
 });
+window.addEventListener('load', removePreloader);
+setTimeout(removePreloader, 1500); // Safety fallback
 
-// Counter Animation on Scroll
-const counters = document.querySelectorAll('.counter');
-let hasAnimated = false;
+// Initialize Animations
+try { AOS.init({ duration: 800, once: true }); } catch(e){}
 
-function startCounters() {
-  const statsSection = document.getElementById('stats');
-  if(!statsSection) return;
-  const position = statsSection.getBoundingClientRect().top;
-  const screenHeight = window.innerHeight;
-
-  if (position < screenHeight && !hasAnimated) {
-    hasAnimated = true;
-    counters.forEach(counter => {
-      const target = +counter.getAttribute('data-target');
-      let count = 0;
-      const speed = target / 40;
-
-      const updateCount = () => {
-        count += speed;
-        if (count < target) {
-          counter.innerText = Math.ceil(count) + "+";
-          setTimeout(updateCount, 30);
+// Number Counter Animation
+let countDone = false;
+function handleCounter() {
+  const sec = document.getElementById('stats');
+  if(!sec) return;
+  const top = sec.getBoundingClientRect().top;
+  if(top < window.innerHeight && !countDone) {
+    countDone = true;
+    document.querySelectorAll('.counter').forEach(c => {
+      const target = +c.getAttribute('data-target');
+      let current = 0;
+      const step = Math.max(1, Math.ceil(target / 30));
+      const timer = setInterval(() => {
+        current += step;
+        if(current >= target) {
+          c.innerText = target + "+";
+          clearInterval(timer);
         } else {
-          counter.innerText = target + "+";
+          c.innerText = current + "+";
         }
-      };
-      updateCount();
+      }, 40);
     });
   }
 }
-window.addEventListener('scroll', startCounters);
+window.addEventListener('scroll', handleCounter);
 
-// Video Modal Controls
+// Video Modal System
 const modal = document.getElementById('videoModal');
-const modalIframe = document.getElementById('modalIframe');
+const iframe = document.getElementById('modalIframe');
 document.getElementById('closeModal')?.addEventListener('click', () => {
   modal.classList.remove('active');
-  modalIframe.src = '';
+  iframe.src = '';
 });
 
-// Portfolio Loader System
-async function loadCMSProjects() {
+// Load Items
+async function initPortfolio() {
   const grid = document.getElementById('portfolioGrid');
   if(!grid) return;
 
-  // Fallback items
-  const defaultItems = [
+  const defaultWork = [
     { title: 'Retention Storytelling Edit', category: 'YouTube', url: 'https://www.youtube.com/embed/CQZx1fn0lmE' },
     { title: 'Viral Hook Short Edit', category: 'Shorts', url: 'https://www.youtube.com/embed/CQZx1fn0lmE' },
     { title: 'Cinematic Gameplay Highlights', category: 'Gaming', url: 'https://www.youtube.com/embed/CQZx1fn0lmE' }
   ];
 
-  let projects = [];
-
+  let items = [];
   try {
     const res = await fetch('/content/portfolio.json');
     if(res.ok) {
       const data = await res.json();
-      projects = Array.isArray(data) ? data : (data.projects || []);
+      items = Array.isArray(data) ? data : (data.projects || []);
     }
-  } catch(e) {}
+  } catch(e){}
 
-  if(!projects || projects.length === 0) {
-    projects = defaultItems;
-  }
+  if(!items.length) items = defaultWork;
 
   grid.innerHTML = '';
-  projects.forEach((item, index) => {
-    let title = item.title || item.project_title || 'Untitled Edit';
-    let cat = item.category || 'Video Edit';
-    let videoUrl = item.video_url || item.embed_code || item.url || '';
+  items.forEach((item, i) => {
+    const title = item.title || item.project_title || 'Video Project';
+    const cat = item.category || 'Portfolio';
+    const rawUrl = item.video_url || item.url || item.embed_code || '';
     
-    // Parse Youtube Embed Link
-    let embedUrl = '';
+    let embed = '';
     let ytId = '';
-    if(videoUrl) {
-      const match = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-      if(match && match[1]) {
-        ytId = match[1];
-        embedUrl = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+    if(rawUrl) {
+      const m = rawUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+      if(m && m[1]) {
+        ytId = m[1];
+        embed = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
       } else {
-        embedUrl = videoUrl;
+        embed = rawUrl;
       }
     }
 
-    const thumbImg = item.thumbnail || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '');
+    const thumb = item.thumbnail || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '');
 
     const card = document.createElement('div');
     card.className = 'p-card glass-card';
-    card.setAttribute('data-aos', 'fade-up');
-    card.setAttribute('data-aos-delay', (index * 100).toString());
-
     card.innerHTML = `
-      ${thumbImg ? `<img src="${thumbImg}" alt="${title}">` : '<div class="thumb"><i class="fa-solid fa-play"></i></div>'}
+      ${thumb ? `<img src="${thumb}" alt="${title}">` : '<div class="thumb"><i class="fa-solid fa-play"></i></div>'}
       <div class="p-overlay">
         <span class="p-tag">${cat}</span>
         <h4 class="p-title">${title}</h4>
@@ -488,8 +435,8 @@ async function loadCMSProjects() {
     `;
 
     card.addEventListener('click', () => {
-      if(embedUrl) {
-        modalIframe.src = embedUrl;
+      if(embed) {
+        iframe.src = embed;
         modal.classList.add('active');
       }
     });
@@ -498,7 +445,7 @@ async function loadCMSProjects() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', loadCMSProjects);
+document.addEventListener('DOMContentLoaded', initPortfolio);
 </script>
 </body>
 </html>
