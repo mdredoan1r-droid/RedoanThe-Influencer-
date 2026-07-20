@@ -31,44 +31,60 @@ body{
 h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
 ::selection{background:var(--red);color:#000;}
 
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar{width:8px;}
 ::-webkit-scrollbar-track{background:#050507;}
 ::-webkit-scrollbar-thumb{background:var(--red);border-radius:10px;box-shadow:0 0 10px var(--red-glow);}
 
-/* Preloader Fix */
+/* Glow Cursor */
+.cursor-dot, .cursor-ring{
+  position:fixed;top:0;left:0;pointer-events:none;z-index:99999;
+  border-radius:50%;transform:translate(-50%,-50%);
+}
+.cursor-dot{
+  width:8px;height:8px;background:var(--red);
+  box-shadow:0 0 15px var(--red), 0 0 25px var(--red);
+}
+.cursor-ring{
+  width:38px;height:38px;border:1.5px solid var(--red-glow);
+  box-shadow:0 0 20px rgba(255, 31, 61, 0.3);
+  transition:width .2s, height .2s;
+}
+@media(max-width:900px){.cursor-dot,.cursor-ring{display:none;}}
+
+/* Preloader */
 #preloader{
-  position:fixed;inset:0;background:#030304;z-index:99999;
+  position:fixed;inset:0;background:#030304;z-index:999999;
   display:flex;align-items:center;justify-content:center;flex-direction:column;
-  transition:opacity .5s ease, visibility .5s ease;
+  transition:opacity .4s ease, visibility .4s ease;
 }
 #preloader.hide{opacity:0;visibility:hidden;pointer-events:none;}
 .loader-logo{font-size:2.8rem;font-weight:800;letter-spacing:3px;color:var(--white);}
 .loader-logo span{color:var(--red);text-shadow:0 0 25px var(--red);}
-.loader-bar{width:240px;height:3px;background:#131418;margin-top:25px;overflow:hidden;position:relative;border-radius:4px;}
+.loader-bar{width:220px;height:3px;background:#131418;margin-top:20px;overflow:hidden;position:relative;border-radius:4px;}
 .loader-bar::after{
   content:'';position:absolute;left:-50%;top:0;height:100%;width:50%;
   background:linear-gradient(90deg,transparent,var(--red),#ffffff,var(--red),transparent);
   box-shadow:0 0 15px var(--red);
-  animation:loadmove 1s infinite ease-in-out;
+  animation:loadmove 0.9s infinite ease-in-out;
 }
 @keyframes loadmove{0%{left:-50%;}100%{left:100%;}}
 
-/* Dynamic Background */
+/* Dynamic BG Grid & Glow */
 .bg-grid{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(255, 31, 61, 0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255, 31, 61, 0.05) 1px,transparent 1px);
-  background-size:50px 50px;
+  background-size:45px 45px;
   mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 80%);
 }
 .glow-orb{
-  position:fixed;border-radius:50%;filter:blur(140px);opacity:.4;pointer-events:none;
+  position:fixed;border-radius:50%;filter:blur(130px);opacity:.35;pointer-events:none;
 }
 
-/* Navigation */
+/* Nav */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
-  padding:20px 6%;display:flex;align-items:center;justify-content:space-between;
+  padding:18px 6%;display:flex;align-items:center;justify-content:space-between;
   background:rgba(3, 3, 4, 0.85);backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
@@ -76,108 +92,123 @@ nav{
 .logo span{color:var(--red);text-shadow:0 0 20px var(--red);}
 .nav-links{display:flex;gap:35px;list-style:none;}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:500;transition:.3s ease;}
-.nav-links a:hover{color:var(--white);}
+.nav-links a:hover{color:var(--white);text-shadow:0 0 10px rgba(255,255,255,0.5);}
 .nav-cta{
   padding:10px 24px;border:1px solid var(--red);color:var(--red);border-radius:50px;font-size:.85rem;font-weight:700;
   text-decoration:none;transition:.3s ease;box-shadow:0 0 15px rgba(255,31,61,0.2);
 }
-.nav-cta:hover{background:var(--red);color:#000;box-shadow:0 0 25px var(--red);}
+.nav-cta:hover{background:var(--red);color:#000;box-shadow:0 0 25px var(--red);transform:scale(1.04);}
 
 /* Glass Cards */
 .glass-card{
   background:var(--bg-panel);
   border:1px solid rgba(255,255,255,0.09);
-  border-radius:22px;
+  border-radius:20px;
   backdrop-filter:blur(16px);
-  transition:all .3s ease;
+  transition:all .35s ease;
 }
 .glass-card:hover{
   border-color:rgba(255,31,61,0.5);
-  box-shadow:0 10px 30px rgba(0,0,0,0.8), 0 0 25px rgba(255,31,61,0.15);
+  box-shadow:0 12px 35px rgba(0,0,0,0.8), 0 0 30px rgba(255,31,61,0.25);
+  transform:translateY(-5px);
 }
 
-section{position:relative;z-index:1;padding:120px 6%;}
+section{position:relative;z-index:1;padding:110px 6%;}
 .eyebrow{
   display:inline-flex;align-items:center;gap:10px;color:var(--red);font-size:.8rem;
-  letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:15px;
+  letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:14px;
 }
 .sec-title{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;line-height:1.1;}
 
-/* Hero Section */
+/* Hero */
 .hero{
   min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  padding-top:100px;
+  padding-top:90px;
 }
 .hero-tag{
   display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border:1px solid rgba(255,31,61,0.4);
   border-radius:50px;font-size:.85rem;color:#ff8093;background:rgba(255,31,61,0.08);margin-bottom:28px;
 }
-.hero h1{font-size:clamp(2.5rem,6vw,5.2rem);font-weight:800;line-height:1.1;max-width:1000px;}
+.hero h1{font-size:clamp(2.5rem,6vw,5.2rem);font-weight:800;line-height:1.1;max-width:1050px;}
 .hero h1 .highlight{
   background:linear-gradient(90deg,#ffffff,var(--red),#ff758c);-webkit-background-clip:text;background-clip:text;color:transparent;
 }
 
 .btn{
-  padding:15px 32px;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;
+  padding:15px 34px;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;
   display:inline-flex;align-items:center;gap:10px;transition:.3s ease;
 }
 .btn-primary{background:var(--red);color:#000;box-shadow:0 0 30px var(--red-glow);}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(255,31,61,0.7);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(255,31,61,0.8);}
 .btn-outline{border:1px solid rgba(255,255,255,0.25);color:var(--white);}
 .btn-outline:hover{border-color:var(--red);color:var(--red);transform:translateY(-3px);}
 
 /* Grid System */
-.about-wrap{display:grid;grid-template-columns:0.8fr 1.2fr;gap:60px;align-items:center;}
+.about-wrap{display:grid;grid-template-columns:0.8fr 1.2fr;gap:50px;align-items:center;}
 @media(max-width:900px){.about-wrap{grid-template-columns:1fr;}}
 
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:50px;}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:50px;}
 .service-card{padding:32px 26px;}
 .service-icon{
-  width:55px;height:55px;border-radius:14px;background:rgba(255,31,61,0.1);
+  width:55px;height:55px;border-radius:14px;background:rgba(255,31,61,0.12);
   display:flex;align-items:center;justify-content:center;margin-bottom:20px;
   color:var(--red);font-size:1.4rem;border:1px solid rgba(255,31,61,0.3);
+  box-shadow:0 0 20px rgba(255,31,61,0.15);
 }
 
-.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;}
 .p-card{
   position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;cursor:pointer;
-  border:1px solid rgba(255,255,255,0.09);transition:all .3s;background:#0d0e11;
+  border:1px solid rgba(255,255,255,0.09);transition:all .35s;background:#0d0e11;
 }
-.p-card:hover{border-color:var(--red);transform:scale(1.02);}
+.p-card:hover{border-color:var(--red);box-shadow:0 0 30px rgba(255,31,61,0.3);transform:scale(1.02);}
 .p-card img{width:100%;height:100%;object-fit:cover;}
 .p-card .thumb{
   position:absolute;inset:0;background:linear-gradient(150deg,#181a20,#08090b);
   display:flex;align-items:center;justify-content:center;
 }
 .p-card .thumb i{font-size:2.5rem;color:rgba(255,255,255,0.4);transition:.3s;}
-.p-card:hover .thumb i{color:var(--red);transform:scale(1.15);}
+.p-card:hover .thumb i{color:var(--red);transform:scale(1.2);}
 .p-overlay{
-  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;
   background:linear-gradient(to top,rgba(0,0,0,0.95),transparent 70%);
 }
 .p-tag{color:var(--red);font-size:.75rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;font-weight:700;}
-.p-title{font-weight:700;font-size:1rem;}
+.p-title{font-weight:700;font-size:1.05rem;}
 
 /* Fullscreen Video Modal */
 .video-modal{
-  position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.92);backdrop-filter:blur(15px);
-  display:none;align-items:center;justify-content:center;padding:20px;
+  position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);
+  display:none;align-items:center;justify-content:center;padding:25px;
 }
 .video-modal.active{display:flex;}
-.video-modal-content{width:100%;max-width:900px;aspect-ratio:16/9;position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--red);box-shadow:0 0 50px var(--red-glow);}
-.close-modal{
-  position:absolute;top:-45px;right:0;color:#fff;font-size:2rem;cursor:pointer;
+.video-modal-content{
+  width:100%;max-width:920px;aspect-ratio:16/9;position:relative;
+  border-radius:18px;overflow:hidden;border:1px solid var(--red);
+  box-shadow:0 0 60px var(--red-glow);background:#000;
 }
+.close-modal-btn{
+  position:absolute;top:15px;right:20px;z-index:10;
+  width:42px;height:42px;border-radius:50%;background:rgba(255,31,61,0.85);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;cursor:pointer;transition:.3s;box-shadow:0 0 20px var(--red-glow);
+}
+.close-modal-btn:hover{background:var(--red);transform:scale(1.15);}
 
 /* Counter Box */
 .stats-wrap{
   display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:50px 5%;border-radius:24px;
-  border:1px solid rgba(255,31,61,0.3);box-shadow:0 0 40px rgba(255,31,61,0.1);
+  border:1px solid rgba(255,31,61,0.3);box-shadow:0 0 40px rgba(255,31,61,0.15);
 }
 @media(max-width:768px){.stats-wrap{grid-template-columns:repeat(2,1fr);}}
 .stat{text-align:center;}
-.stat h3{font-size:clamp(2.2rem,5vw,3.2rem);color:var(--red);font-family:'Space Grotesk';text-shadow:0 0 20px var(--red);}
+.stat h3{font-size:clamp(2.4rem,5vw,3.5rem);color:var(--red);font-family:'Space Grotesk';text-shadow:0 0 25px var(--red);}
 .stat p{color:var(--muted);margin-top:6px;font-size:.85rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+
+/* Testimonials */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;margin-top:50px;}
+.review-card{padding:30px 25px;position:relative;}
+.stars{color:#ffb703;font-size:.9rem;margin-bottom:12px;}
 
 /* Contact Section */
 .contact-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:50px;}
@@ -192,9 +223,13 @@ section{position:relative;z-index:1;padding:120px 6%;}
   <div class="loader-bar"></div>
 </div>
 
-<!-- Dynamic BG Grid -->
+<!-- Custom Glow Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Background Canvas -->
 <div class="bg-grid"></div>
-<div class="glow-orb" style="width:500px;height:500px;background:var(--red);top:-150px;left:-150px;"></div>
+<div class="glow-orb" style="width:550px;height:550px;background:var(--red);top:-150px;left:-150px;"></div>
 
 <!-- Navigation Bar -->
 <nav>
@@ -203,37 +238,44 @@ section{position:relative;z-index:1;padding:120px 6%;}
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#reviews">Reviews</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Hire Me</a>
 </nav>
 
-<!-- HERO -->
+<!-- HERO SECTION -->
 <section class="hero" id="home" data-aos="fade-up">
   <div class="hero-tag"><span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Available for freelance projects</div>
   <h1>Transforming Raw Footage Into <span class="highlight">High-Retention Stories.</span></h1>
-  <p class="mt-6 text-gray-400 max-w-2xl text-lg">Professional Video Editing, Motion Graphics, and Short-form Content to scale your brand.</p>
+  <p class="mt-6 text-gray-400 max-w-2xl text-lg">Professional Video Editing, Motion Graphics, and Short-form Content engineered for growth.</p>
   <div class="flex gap-4 mt-8">
     <a href="#portfolio" class="btn btn-primary"><i class="fa-solid fa-play"></i> View Portfolio</a>
     <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ABOUT SECTION -->
 <section id="about" data-aos="fade-up">
   <div class="about-wrap">
-    <div class="rounded-2xl overflow-hidden border border-red-500/30">
-      <img src="logo.png" alt="Redoan" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400/111/fff?text=REDOAN'">
+    <div class="relative rounded-2xl overflow-hidden border border-red-500/30 bg-black/40 aspect-square flex items-center justify-center shadow-[0_0_30px_rgba(255,31,61,0.2)]">
+      <img src="logo.png" alt="Redoan Avatar" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\'text-center p-6\'><i class=\'fa-solid fa-user-ninja text-6xl text-red-500 mb-3\'></i><h3 class=\'font-bold text-xl text-white\'>REDOAN</h3><p class=\'text-xs text-red-400 tracking-widest uppercase mt-1\'>Video Editor & Motion Designer</p></div>';">
     </div>
     <div>
       <div class="eyebrow">About Me</div>
       <h2 class="sec-title">I'm Redoan — a storyteller behind the timeline.</h2>
-      <p class="mt-4 text-gray-400 leading-relaxed">I'm a video editor and motion designer specializing in high-retention content creation. I help YouTubers, gaming creators, and brands turn raw footage into viral hits.</p>
+      <p class="mt-5 text-gray-400 leading-relaxed text-base">I'm a passionate video editor and motion graphics designer focused on retention-driven storytelling. I help YouTubers, gaming creators, and digital brands turn raw footage into viral hits with custom graphics, precise pacing, and punchy sound design.</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <span class="px-4 py-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-semibold">Premier Pro</span>
+        <span class="px-4 py-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-semibold">After Effects</span>
+        <span class="px-4 py-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-semibold">CapCut Pro</span>
+        <span class="px-4 py-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-semibold">Sound Design</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES SECTION (6 CARDS) -->
 <section id="services">
   <div class="text-center" data-aos="fade-up">
     <div class="eyebrow">Services</div>
@@ -243,17 +285,32 @@ section{position:relative;z-index:1;padding:120px 6%;}
     <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="100">
       <div class="service-icon"><i class="fa-solid fa-video"></i></div>
       <h3 class="text-xl font-bold mb-2">YouTube Video Editing</h3>
-      <p class="text-gray-400 text-sm">High-retention storytelling, sound design, pacing & graphics optimized for watch time.</p>
+      <p class="text-gray-400 text-sm">High-retention storytelling, pacing, animated graphics & custom sound design built for watch time.</p>
+    </div>
+    <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="150">
+      <div class="service-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+      <h3 class="text-xl font-bold mb-2">Shorts, Reels & TikTok</h3>
+      <p class="text-gray-400 text-sm">Fast-paced, hook-driven vertical content designed for rapid viral growth across platforms.</p>
     </div>
     <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="200">
-      <div class="service-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-      <h3 class="text-xl font-bold mb-2">Shorts & Reels</h3>
-      <p class="text-gray-400 text-sm">Fast-paced, hook-driven vertical content designed for maximum engagement & virality.</p>
+      <div class="service-icon"><i class="fa-solid fa-gamepad"></i></div>
+      <h3 class="text-xl font-bold mb-2">Gaming Montages</h3>
+      <p class="text-gray-400 text-sm">High-energy edits, funny moments, sound effects & dramatic cinematic gameplay highlights.</p>
+    </div>
+    <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="250">
+      <div class="service-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+      <h3 class="text-xl font-bold mb-2">Motion Graphics & VFX</h3>
+      <p class="text-gray-400 text-sm">Custom lower thirds, title openers, kinetic typography, and smooth visual effects.</p>
     </div>
     <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="300">
-      <div class="service-icon"><i class="fa-solid fa-gamepad"></i></div>
-      <h3 class="text-xl font-bold mb-2">Gaming Edits</h3>
-      <p class="text-gray-400 text-sm">High-energy montages, funny moments & cinematic gameplay highlights.</p>
+      <div class="service-icon"><i class="fa-solid fa-sliders"></i></div>
+      <h3 class="text-xl font-bold mb-2">Color Grading & Polish</h3>
+      <p class="text-gray-400 text-sm">Professional cinematic color enhancement, lighting corrections, and atmospheric visual styling.</p>
+    </div>
+    <div class="service-card glass-card" data-aos="fade-up" data-aos-delay="350">
+      <div class="service-icon"><i class="fa-solid fa-headphones"></i></div>
+      <h3 class="text-xl font-bold mb-2">Sound Design & Mixing</h3>
+      <p class="text-gray-400 text-sm">Crisp audio cleanup, immersive sound effects, EQ balancing, and background music sync.</p>
     </div>
   </div>
 </section>
@@ -269,10 +326,10 @@ section{position:relative;z-index:1;padding:120px 6%;}
   </div>
 </section>
 
-<!-- VIDEO MODAL PLAYER -->
+<!-- VIDEO MODAL PLAYER (WITH CLOSE BUTTON & BACKDROP ESCAPE) -->
 <div class="video-modal" id="videoModal">
   <div class="video-modal-content">
-    <span class="close-modal" id="closeModal">&times;</span>
+    <button class="close-modal-btn" id="closeModal" title="Close Video"><i class="fa-solid fa-xmark"></i></button>
     <iframe id="modalIframe" src="" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 </div>
@@ -299,7 +356,56 @@ section{position:relative;z-index:1;padding:120px 6%;}
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- REVIEWS / TESTIMONIALS (2 Foreign + 1 BD) -->
+<section id="reviews" data-aos="fade-up">
+  <div class="text-center">
+    <div class="eyebrow">Testimonials</div>
+    <h2 class="sec-title">What Clients Say</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card glass-card">
+      <div class="stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p class="text-gray-300 text-sm leading-relaxed mb-6">"Redoan is an absolute wizard with pacing and motion graphics! He edited 5 YouTube videos for my channel and my retention rate jumped by 35%."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-red-500/20 text-red-400 font-bold flex items-center justify-center border border-red-500/40">AR</div>
+        <div>
+          <h4 class="font-bold text-sm">Alex Rivera</h4>
+          <p class="text-xs text-gray-500">Tech YouTuber — USA</p>
+        </div>
+      </div>
+    </div>
+    <div class="review-card glass-card">
+      <div class="stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p class="text-gray-300 text-sm leading-relaxed mb-6">"Insane gaming montages! The sound design and seamless transitions brought my stream highlights to life. Super fast delivery as well."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-red-500/20 text-red-400 font-bold flex items-center justify-center border border-red-500/40">DM</div>
+        <div>
+          <h4 class="font-bold text-sm">David Miller</h4>
+          <p class="text-xs text-gray-500">Esports Creator — UK</p>
+        </div>
+      </div>
+    </div>
+    <div class="review-card glass-card">
+      <div class="stars">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+      </div>
+      <p class="text-gray-300 text-sm leading-relaxed mb-6">"রেদোয়ান ভাইয়ের কাজের কোয়ালিটি সেরা! কমপ্লিট প্রফেশনাল এডিটিং এবং টাইমলাইনে অসাধারণ ক্রিয়েটিভিটি দেখিয়েছেন। ধন্যবাদ ভাই।"</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-red-500/20 text-red-400 font-bold flex items-center justify-center border border-red-500/40">TA</div>
+        <div>
+          <h4 class="font-bold text-sm">Tanvir Ahmed</h4>
+          <p class="text-xs text-gray-500">Content Creator — Bangladesh</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
 <section id="contact" data-aos="fade-up">
   <div class="text-center">
     <div class="eyebrow">Get In Touch</div>
@@ -307,91 +413,106 @@ section{position:relative;z-index:1;padding:120px 6%;}
   </div>
   <div class="contact-wrap mt-12">
     <div>
-      <div class="p-6 border border-white/10 rounded-xl mb-4 bg-white/5">
-        <h4 class="font-bold text-red-500 mb-1">WhatsApp</h4>
-        <p>01874552116</p>
+      <div class="p-6 border border-white/10 rounded-xl mb-4 bg-white/5 shadow-[0_0_20px_rgba(255,31,61,0.1)]">
+        <h4 class="font-bold text-red-500 mb-1"><i class="fa-brands fa-whatsapp text-lg mr-2"></i>WhatsApp</h4>
+        <p class="text-lg">01874552116</p>
       </div>
-      <div class="p-6 border border-white/10 rounded-xl bg-white/5">
-        <h4 class="font-bold text-red-500 mb-1">Email</h4>
-        <p>mdredoan1r@gmail.com</p>
+      <div class="p-6 border border-white/10 rounded-xl bg-white/5 shadow-[0_0_20px_rgba(255,31,61,0.1)]">
+        <h4 class="font-bold text-red-500 mb-1"><i class="fa-regular fa-envelope text-lg mr-2"></i>Email</h4>
+        <p class="text-lg">mdredoan1r@gmail.com</p>
       </div>
     </div>
     <form class="glass-card p-8 flex flex-col gap-4">
-      <input type="text" placeholder="Your Name" class="p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500" required>
-      <input type="email" placeholder="Your Email" class="p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500" required>
-      <textarea placeholder="Your Message" class="p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500 h-32" required></textarea>
+      <input type="text" placeholder="Your Name" class="p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500 text-white" required>
+      <input type="email" placeholder="Your Email" class="p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500 text-white" required>
+      <textarea placeholder="Your Message" class="p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500 text-white h-32" required></textarea>
       <button class="btn btn-primary w-full justify-center">Send Message</button>
     </form>
   </div>
 </section>
 
-<footer class="p-8 border-t border-white/10 text-center text-gray-500 text-sm mt-20">
+<footer class="p-8 border-t border-white/10 text-center text-gray-500 text-sm mt-10">
   <p>© 2026 Redoan. All rights reserved.</p>
 </footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-// Instant Preloader Removal System
-function removePreloader() {
+// Preloader Safeguard
+function dismissPreloader() {
   const loader = document.getElementById('preloader');
-  if(loader) {
-    loader.classList.add('hide');
-  }
+  if(loader) loader.classList.add('hide');
 }
-// Run immediately when page DOM is ready (Max 1s fallback)
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(removePreloader, 400);
-});
-window.addEventListener('load', removePreloader);
-setTimeout(removePreloader, 1500); // Safety fallback
+document.addEventListener('DOMContentLoaded', () => setTimeout(dismissPreloader, 300));
+window.addEventListener('load', dismissPreloader);
+setTimeout(dismissPreloader, 1000);
 
-// Initialize Animations
+// Glow Cursor Tracking
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+window.addEventListener('mousemove', e => {
+  if(dot && ring) {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  }
+});
+
+// Scroll Reveal
 try { AOS.init({ duration: 800, once: true }); } catch(e){}
 
-// Number Counter Animation
-let countDone = false;
-function handleCounter() {
-  const sec = document.getElementById('stats');
-  if(!sec) return;
-  const top = sec.getBoundingClientRect().top;
-  if(top < window.innerHeight && !countDone) {
-    countDone = true;
-    document.querySelectorAll('.counter').forEach(c => {
-      const target = +c.getAttribute('data-target');
-      let current = 0;
-      const step = Math.max(1, Math.ceil(target / 30));
-      const timer = setInterval(() => {
-        current += step;
-        if(current >= target) {
-          c.innerText = target + "+";
-          clearInterval(timer);
-        } else {
-          c.innerText = current + "+";
-        }
-      }, 40);
-    });
-  }
-}
-window.addEventListener('scroll', handleCounter);
+// Counter Observer Logic
+const counterElements = document.querySelectorAll('.counter');
+let counterDone = false;
 
-// Video Modal System
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting && !counterDone) {
+      counterDone = true;
+      counterElements.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        let current = 0;
+        const increment = Math.ceil(target / 35);
+        const timer = setInterval(() => {
+          current += increment;
+          if(current >= target) {
+            counter.innerText = target + "+";
+            clearInterval(timer);
+          } else {
+            counter.innerText = current + "+";
+          }
+        }, 35);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+const statsSection = document.getElementById('stats');
+if(statsSection) counterObserver.observe(statsSection);
+
+// Video Modal Logic with Close Button & ESC support
 const modal = document.getElementById('videoModal');
 const iframe = document.getElementById('modalIframe');
-document.getElementById('closeModal')?.addEventListener('click', () => {
-  modal.classList.remove('active');
-  iframe.src = '';
+
+function closeModal() {
+  if(modal && iframe) {
+    modal.classList.remove('active');
+    iframe.src = '';
+  }
+}
+
+document.getElementById('closeModal')?.addEventListener('click', closeModal);
+modal?.addEventListener('click', (e) => {
+  if(e.target === modal) closeModal();
+});
+window.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') closeModal();
 });
 
-// Load Items
+// Portfolio Loader (Loads Netlify CMS JSON cleanly)
 async function initPortfolio() {
   const grid = document.getElementById('portfolioGrid');
   if(!grid) return;
-
-  const defaultWork = [
-    { title: 'Retention Storytelling Edit', category: 'YouTube', url: 'https://www.youtube.com/embed/CQZx1fn0lmE' },
-    { title: 'Viral Hook Short Edit', category: 'Shorts', url: 'https://www.youtube.com/embed/CQZx1fn0lmE' },
-    { title: 'Cinematic Gameplay Highlights', category: 'Gaming', url: 'https://www.youtube.com/embed/CQZx1fn0lmE' }
-  ];
 
   let items = [];
   try {
@@ -402,12 +523,17 @@ async function initPortfolio() {
     }
   } catch(e){}
 
-  if(!items.length) items = defaultWork;
+  // Fallback project if CMS file is empty or not yet published
+  if(!items.length) {
+    items = [
+      { title: 'Retention Storytelling Edit', category: 'YouTube', video_url: 'https://www.youtube.com/embed/CQZx1fn0lmE' }
+    ];
+  }
 
   grid.innerHTML = '';
   items.forEach((item, i) => {
-    const title = item.title || item.project_title || 'Video Project';
-    const cat = item.category || 'Portfolio';
+    const title = item.title || item.project_title || 'Featured Edit';
+    const cat = item.category || 'Video Edit';
     const rawUrl = item.video_url || item.url || item.embed_code || '';
     
     let embed = '';
@@ -426,6 +552,9 @@ async function initPortfolio() {
 
     const card = document.createElement('div');
     card.className = 'p-card glass-card';
+    card.setAttribute('data-aos', 'fade-up');
+    card.setAttribute('data-aos-delay', (i * 100).toString());
+
     card.innerHTML = `
       ${thumb ? `<img src="${thumb}" alt="${title}">` : '<div class="thumb"><i class="fa-solid fa-play"></i></div>'}
       <div class="p-overlay">
