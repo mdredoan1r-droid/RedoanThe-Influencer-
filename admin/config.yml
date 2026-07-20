@@ -3,16 +3,40 @@ backend:
   branch: main
 
 media_folder: "images"
-public_folder: "/images"
+public_folder: "images"
 
 collections:
-  - name: "portfolio"
+  # ১. হোমপেজ এবং সাইটের তথ্য এডিট করার সেকশন
+  - name: "settings"
+    label: "Site Settings & Content"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "content/site.json"
+        label: "Homepage Content & Settings"
+        name: "homepage"
+        fields:
+          - { label: "Website Title", name: "site_title", widget: "string", default: "Redoan - Video Editor & Motion Graphics" }
+          - { label: "Logo Image", name: "logo", widget: "image", required: false }
+          - { label: "Hero Title", name: "hero_title", widget: "string", default: "Transforming Raw Footage Into High-Retention Stories." }
+          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text", default: "Professional Video Editing, Motion Graphics and Short-form Content..." }
+          - { label: "About Text", name: "about_text", widget: "text", required: false }
+          - { label: "Profile Photo", name: "profile_image", widget: "image", required: false }
+          - { label: "Contact Email", name: "contact_email", widget: "string", required: false }
+          - { label: "WhatsApp Number", name: "whatsapp", widget: "string", required: false }
+
+  # ২. প্রজেক্ট এবং ক্যাটাগরি ম্যানেজ করার সেকশন
+  - name: "projects"
     label: "Projects"
-    folder: "content/portfolio"
+    folder: "content/projects"
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "Category", name: "cat", widget: "select", options: ["Influencer Edits", "Shorts/Reels", "Gaming Videos", "Fantasy Edits", "Promotional Ads", "Motion Graphics"]}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Icon Class", name: "icon", widget: "string", default: "fa-play"}
-      - {label: "YouTube Video URL", name: "videoUrl", widget: "string"}
+      - { label: "Project Title", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Shorts & Reels", "YouTube Videos", "Gaming Edits", "Motion Graphics", "Color Grading"] }
+      - { label: "Thumbnail Image", name: "thumbnail", widget: "image" }
+      - { label: "Video Link (YouTube/Vimeo/Drive)", name: "video_url", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Featured Project?", name: "featured", widget: "boolean", default: false }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
