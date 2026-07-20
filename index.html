@@ -51,7 +51,7 @@ h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
 #preloader{
   position:fixed;inset:0;background:#050506;z-index:99999;
   display:flex;align-items:center;justify-content:center;flex-direction:column;
-  transition:opacity .8s ease, visibility .8s ease;
+  transition:opacity .6s ease, visibility .6s ease;
 }
 #preloader.hide{opacity:0;visibility:hidden;}
 .loader-logo{font-size:2.2rem;font-weight:700;letter-spacing:2px;color:var(--white);}
@@ -79,7 +79,7 @@ h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
 nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   padding:18px 5%;display:flex;align-items:center;justify-content:space-between;
-  background:rgba(5,5,6,0.45);backdrop-filter:blur(16px);
+  background:rgba(5,5,6,0.75);backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,0.06);
   transition:padding .3s ease;
 }
@@ -125,8 +125,12 @@ section{position:relative;z-index:1;padding:120px 5%;}
 .sec-title{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;line-height:1.1;margin-bottom:20px;}
 .sec-desc{color:var(--muted);max-width:600px;font-size:1.05rem;line-height:1.7;}
 
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
-.reveal.in-view{opacity:1;transform:translateY(0);}
+/* Animations & Visibility Fix */
+.reveal{
+  opacity:1 !important;
+  transform:none !important;
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
+}
 
 /* ---------- HERO ---------- */
 .hero{
@@ -186,14 +190,17 @@ section{position:relative;z-index:1;padding:120px 5%;}
   background:linear-gradient(160deg,#1a1c1f,#0a0b0c);
   display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,0,0,0.15);
 }
+.about-img img{
+  width:100%;height:100%;object-fit:cover;
+}
 .about-img .frame-glow{
   position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,0,0,0.25),transparent 60%);
+  pointer-events:none;
 }
-.about-img i{font-size:5rem;color:rgba(255,0,0,0.4);}
 .strength-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px;}
 .strength{
   display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:14px;
-  border:1px solid rgba(255,255,255,0.06);transition:.3s;
+  border:1px solid rgba(255,255,255,0.06);transition:.3s;background:rgba(255,255,255,0.02);
 }
 .strength:hover{border-color:rgba(255,0,0,0.4);background:rgba(255,0,0,0.04);}
 .strength i{color:var(--red);font-size:1.1rem;margin-top:3px;}
@@ -211,13 +218,7 @@ section{position:relative;z-index:1;padding:120px 5%;}
   border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);
   transition:.4s cubic-bezier(.2,.8,.2,1);
 }
-.service-card::before{
-  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-  background:radial-gradient(circle,rgba(255,0,0,0.12),transparent 60%);
-  opacity:0;transition:opacity .4s;
-}
 .service-card:hover{transform:translateY(-8px);border-color:rgba(255,0,0,0.4);box-shadow:0 20px 50px rgba(0,0,0,0.5);}
-.service-card:hover::before{opacity:1;}
 .service-icon{
   width:56px;height:56px;border-radius:14px;background:rgba(255,0,0,0.08);
   display:flex;align-items:center;justify-content:center;margin-bottom:22px;
@@ -231,45 +232,28 @@ section{position:relative;z-index:1;padding:120px 5%;}
 .software-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:60px;}
 .soft-card{padding:28px;text-align:center;border-radius:18px;transition:.35s;}
 .soft-card:hover{transform:translateY(-6px);}
-.soft-icon{font-size:2.6rem;margin-bottom:14px;transition:.3s;}
-.soft-card:hover .soft-icon{color:var(--red);text-shadow:0 0 25px rgba(255,0,0,0.6);}
+.soft-icon{font-size:2.6rem;margin-bottom:14px;color:var(--red);}
 .bar-track{width:100%;height:5px;background:rgba(255,255,255,0.08);border-radius:10px;margin-top:14px;overflow:hidden;}
-.bar-fill{height:100%;background:linear-gradient(90deg,var(--red-dim),var(--red));width:0%;border-radius:10px;transition:width 1.4s cubic-bezier(.2,.8,.2,1);}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--red-dim),var(--red));border-radius:10px;}
 .soft-pct{font-size:.78rem;color:var(--muted);margin-top:8px;display:block;}
 
 /* ---------- PORTFOLIO ---------- */
-.filter-row{display:flex;flex-wrap:wrap;gap:12px;margin:40px 0;}
-.filter-btn{
-  padding:10px 20px;border-radius:50px;border:1px solid rgba(255,255,255,0.12);background:transparent;
-  color:var(--muted);font-size:.85rem;cursor:pointer;transition:.3s;
-}
-.filter-btn.active,.filter-btn:hover{border-color:var(--red);color:var(--red);background:rgba(255,0,0,0.06);}
 .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
 .p-card{
   position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;cursor:pointer;
-  border:1px solid rgba(255,255,255,0.08);transition:.4s;
+  border:1px solid rgba(255,255,255,0.08);transition:.4s;background:#111214;
 }
 .p-card .thumb{
   position:absolute;inset:0;background:linear-gradient(150deg,#161719,#08090a);
   display:flex;align-items:center;justify-content:center;transition:.5s;
 }
-.p-card .thumb i{font-size:2.4rem;color:rgba(255,255,255,0.15);transition:.4s;}
-.p-card:hover .thumb{transform:scale(1.08);filter:brightness(1.2);}
-.p-card:hover .thumb i{color:var(--red);transform:scale(1.15);}
+.p-card .thumb i{font-size:2.4rem;color:rgba(255,255,255,0.2);}
 .p-overlay{
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;
   background:linear-gradient(to top,rgba(0,0,0,0.9),transparent 60%);
-  opacity:0;transition:.4s;
 }
-.p-card:hover .p-overlay{opacity:1;}
 .p-tag{color:var(--red);font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
 .p-title{font-weight:600;font-size:1rem;}
-.play-btn{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);width:60px;height:60px;border-radius:50%;
-  background:rgba(255,0,0,0.15);border:1px solid var(--red);display:flex;align-items:center;justify-content:center;
-  color:var(--red);opacity:0;transition:.4s;
-}
-.p-card:hover .play-btn{opacity:1;transform:translate(-50%,-50%) scale(1);}
 
 /* ---------- STATS ---------- */
 .stats-wrap{
@@ -278,33 +262,16 @@ section{position:relative;z-index:1;padding:120px 5%;}
 }
 @media(max-width:800px){.stats-wrap{grid-template-columns:repeat(2,1fr);}}
 .stat{text-align:center;}
-.stat h3{font-size:clamp(2.2rem,5vw,3.4rem);color:var(--red);font-family:'Space Grotesk';text-shadow:0 0 30px rgba(255,0,0,0.4);}
+.stat h3{font-size:clamp(2.2rem,5vw,3.4rem);color:var(--red);font-family:'Space Grotesk';}
 .stat p{color:var(--muted);margin-top:8px;font-size:.9rem;letter-spacing:1px;text-transform:uppercase;}
 
 /* ---------- TESTIMONIALS ---------- */
 .testi-wrap{max-width:800px;margin:60px auto 0;position:relative;}
-.testi-slide{padding:50px;border-radius:24px;text-align:center;display:none;}
-.testi-slide.active{display:block;animation:fadein .6s ease;}
-@keyframes fadein{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+.testi-slide{padding:50px;border-radius:24px;text-align:center;}
 .testi-slide i.fa-quote-left{color:var(--red);font-size:1.8rem;opacity:.6;}
 .testi-text{font-size:1.15rem;line-height:1.8;margin:24px 0;color:#e5e5e5;}
 .testi-name{font-weight:600;}
 .testi-role{color:var(--muted);font-size:.85rem;}
-.testi-avatar{
-  width:56px;height:56px;border-radius:50%;background:rgba(255,0,0,0.1);border:1px solid rgba(255,0,0,0.3);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--red);font-weight:700;
-}
-.testi-dots{display:flex;justify-content:center;gap:10px;margin-top:24px;}
-.tdot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:.3s;}
-.tdot.active{background:var(--red);box-shadow:0 0 10px var(--red);width:22px;border-radius:6px;}
-
-/* ---------- WHY CHOOSE ---------- */
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:60px;}
-.why-card{padding:32px;border-radius:18px;border:1px solid rgba(255,255,255,0.07);transition:.35s;}
-.why-card:hover{border-color:rgba(255,0,0,0.35);transform:translateY(-6px);}
-.why-card i{font-size:1.8rem;color:var(--red);margin-bottom:16px;}
-.why-card h3{font-size:1.1rem;margin-bottom:8px;}
-.why-card p{color:var(--muted);font-size:.87rem;line-height:1.6;}
 
 /* ---------- CONTACT ---------- */
 .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
@@ -312,7 +279,6 @@ section{position:relative;z-index:1;padding:120px 5%;}
 .contact-info-item{
   display:flex;align-items:center;gap:16px;padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,0.07);margin-bottom:16px;transition:.3s;
 }
-.contact-info-item:hover{border-color:rgba(255,0,0,0.4);}
 .contact-info-item i{width:46px;height:46px;border-radius:12px;background:rgba(255,0,0,0.1);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
 .contact-info-item h4{font-size:.95rem;margin-bottom:2px;}
 .contact-info-item p{color:var(--muted);font-size:.85rem;}
@@ -321,37 +287,29 @@ section{position:relative;z-index:1;padding:120px 5%;}
   width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;
   justify-content:center;color:var(--white);text-decoration:none;transition:.3s;
 }
-.social-row a:hover{border-color:var(--red);color:var(--red);box-shadow:0 0 20px rgba(255,0,0,0.4);transform:translateY(-4px);}
+.social-row a:hover{border-color:var(--red);color:var(--red);}
 
 .form-group{margin-bottom:20px;}
 .form-group label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:8px;letter-spacing:1px;}
-.form-group input,.form-group textarea,.form-group select{
+.form-group input,.form-group textarea{
   width:100%;padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.12);
-  border-radius:12px;color:var(--white);font-family:'Inter';font-size:.92rem;outline:none;transition:.3s;
+  border-radius:12px;color:var(--white);font-family:'Inter';font-size:.92rem;outline:none;
 }
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(255,0,0,0.15);}
 .form-group textarea{resize:vertical;min-height:120px;}
 .submit-btn{
   width:100%;padding:16px;border-radius:12px;background:var(--red);color:#000;border:none;font-weight:700;
-  font-size:.95rem;cursor:pointer;transition:.3s;
+  font-size:.95rem;cursor:pointer;
 }
-.submit-btn:hover{box-shadow:0 0 30px rgba(255,0,0,0.5);transform:translateY(-2px);}
 
 /* ---------- FOOTER ---------- */
 footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
 .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;padding-bottom:36px;}
 .footer-links{display:flex;gap:34px;flex-wrap:wrap;}
-.footer-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:.3s;}
-.footer-links a:hover{color:var(--red);}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.9rem;}
 .footer-bottom{
   display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.05);
   color:var(--muted);font-size:.8rem;
 }
-.back-top{
-  width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,0,0,0.3);display:flex;align-items:center;justify-content:center;
-  color:var(--red);text-decoration:none;transition:.3s;
-}
-.back-top:hover{background:var(--red);color:#000;}
 
 @media(max-width:600px){
   section{padding:80px 5%;}
@@ -376,7 +334,6 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
 <div class="bg-grid"></div>
 <div class="glow-orb" style="width:600px;height:600px;background:var(--red);top:-200px;left:-150px;"></div>
 <div class="glow-orb" style="width:500px;height:500px;background:var(--red);top:800px;right:-200px;"></div>
-<div class="glow-orb" style="width:500px;height:500px;background:var(--red);bottom:0;left:20%;opacity:.15;"></div>
 
 <!-- NAV -->
 <nav>
@@ -405,13 +362,13 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
 <section class="hero" id="home">
   <div class="hero-tag" id="heroTag"><span class="dot"></span> Available for freelance projects</div>
   <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-    <img src="logo.png" alt="Logo" class="w-32 h-auto md:w-40" id="siteLogo">
-    <h1 class="reveal in-view" id="heroTitle">Transforming Raw Footage Into <span class="highlight">High-Retention Stories.</span></h1>
+    <img src="logo.png" alt="Profile Logo" class="w-28 h-28 object-cover rounded-full border-2 border-red-600 mb-4 md:mb-0" id="siteLogo" onerror="this.style.display='none'">
+    <h1 class="reveal" id="heroTitle">Transforming Raw Footage Into <span class="highlight">High-Retention Stories.</span></h1>
   </div>
-  <p class="reveal in-view" id="heroSub" style="transition-delay:.15s;">Professional Video Editing, Motion Graphics and Short-form Content that helps creators grow faster — built for YouTubers, personal brands and businesses.</p>
-  <div class="hero-buttons reveal in-view" style="transition-delay:.3s;">
-    <a href="#portfolio" class="btn btn-primary" id="btnPrimary"><i class="fa-solid fa-play"></i> View Portfolio</a>
-    <a href="#contact" class="btn btn-outline" id="btnSecondary"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
+  <p class="reveal" id="heroSub">Professional Video Editing, Motion Graphics and Short-form Content that helps creators grow faster — built for YouTubers, personal brands and businesses.</p>
+  <div class="hero-buttons reveal">
+    <a href="#portfolio" class="btn btn-primary"><i class="fa-solid fa-play"></i> View Portfolio</a>
+    <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
   </div>
   <div class="scroll-indicator"><div class="mouse"></div> SCROLL</div>
 </section>
@@ -422,10 +379,10 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
     <div class="reveal">
       <div class="about-img">
         <div class="frame-glow"></div>
-        <i class="fa-solid fa-clapperboard"></i>
+        <img src="logo.png" alt="Redoan" id="aboutProfileImg" onerror="this.src='https://via.placeholder.com/400x500/111/fff?text=REDOAN'">
       </div>
     </div>
-    <div class="reveal" style="transition-delay:.15s;">
+    <div class="reveal">
       <div class="eyebrow">About Me</div>
       <h2 class="sec-title">I'm Redoan — a storyteller behind the timeline.</h2>
       <p class="sec-desc">I'm a passionate video editor and motion graphics designer with a deep focus on retention-driven storytelling. I help YouTubers, gaming creators, coaches and businesses turn raw footage into scroll-stopping content that keeps audiences watching till the very last second.</p>
@@ -441,9 +398,7 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
         <div class="strength"><i class="fa-solid fa-bolt"></i><div><h4>Fast Turnaround</h4><p>Quick delivery without compromising quality.</p></div></div>
         <div class="strength"><i class="fa-solid fa-chart-line"></i><div><h4>Retention Focused</h4><p>Editing built to hold attention frame by frame.</p></div></div>
         <div class="strength"><i class="fa-solid fa-wand-magic-sparkles"></i><div><h4>Modern Trends</h4><p>Always up to date with current editing styles.</p></div></div>
-        <div class="strength"><i class="fa-solid fa-magnifying-glass"></i><div><h4>Attention to Detail</h4><p>Every cut, transition & sound is intentional.</p></div></div>
         <div class="strength"><i class="fa-solid fa-comments"></i><div><h4>Clear Communication</h4><p>Professional, responsive and collaborative.</p></div></div>
-        <div class="strength"><i class="fa-solid fa-arrow-trend-up"></i><div><h4>Growth Optimized</h4><p>Content structured to maximize channel growth.</p></div></div>
       </div>
     </div>
   </div>
@@ -468,9 +423,8 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
   <div class="reveal" style="text-align:center;">
     <div class="eyebrow">Tools of the Trade</div>
     <h2 class="sec-title">Software & Skills</h2>
-    <p class="sec-desc" style="margin:0 auto;">Industry-standard tools used daily to craft cinematic and high-retention content.</p>
   </div>
-  <div class="software-grid" id="softwareGrid">
+  <div class="software-grid">
     <div class="soft-card glass"><i class="fa-solid fa-film soft-icon"></i><h4>Adobe Premiere Pro</h4><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><span class="soft-pct">Advanced</span></div>
     <div class="soft-card glass"><i class="fa-solid fa-wand-magic-sparkles soft-icon"></i><h4>After Effects</h4><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="soft-pct">Expert</span></div>
     <div class="soft-card glass"><i class="fa-solid fa-scissors soft-icon"></i><h4>CapCut Pro</h4><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><span class="soft-pct">Master</span></div>
@@ -482,12 +436,11 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
   <div class="reveal" style="text-align:center;">
     <div class="eyebrow">Selected Work</div>
     <h2 class="sec-title">Portfolio Showcase</h2>
-    <p class="sec-desc" style="margin:0 auto;">A curated collection of edits across YouTube, Shorts, Gaming, Motion Graphics and Commercial content.</p>
   </div>
   <div class="portfolio-grid" style="margin-top:40px;">
-    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">YouTube</span><h4 class="p-title">Retention Storytelling Edit</h4></div><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
-    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">Shorts</span><h4 class="p-title">Viral Hook Short Edit</h4></div><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
-    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">Gaming</span><h4 class="p-title">Cinematic Gameplay Highlights</h4></div><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
+    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">YouTube</span><h4 class="p-title">Retention Storytelling Edit</h4></div></div>
+    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">Shorts</span><h4 class="p-title">Viral Hook Short Edit</h4></div></div>
+    <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">Gaming</span><h4 class="p-title">Cinematic Gameplay Highlights</h4></div></div>
   </div>
 </section>
 
@@ -508,10 +461,9 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
     <h2 class="sec-title">What Creators Say</h2>
   </div>
   <div class="testi-wrap reveal">
-    <div class="testi-slide active glass">
+    <div class="testi-slide glass">
       <i class="fa-solid fa-quote-left"></i>
       <p class="testi-text">"Redoan completely transformed the pacing of my videos. My watch time jumped noticeably within a month. Incredibly professional and fast."</p>
-      <div class="testi-avatar">JD</div>
       <div class="testi-name">James D.</div>
       <div class="testi-role">YouTuber — 320K subs</div>
     </div>
@@ -523,7 +475,6 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
   <div class="reveal" style="text-align:center;">
     <div class="eyebrow">Get In Touch</div>
     <h2 class="sec-title">Let's Create Something Great</h2>
-    <p class="sec-desc" style="margin:0 auto;">Have a project in mind? Send a message and let's discuss how I can help your content grow.</p>
   </div>
   <div class="contact-wrap" style="margin-top:50px;">
     <div class="reveal">
@@ -545,7 +496,7 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
         <a href="#"><i class="fa-brands fa-facebook"></i></a>
       </div>
     </div>
-    <form class="glass reveal" style="padding:34px;" id="contactForm">
+    <form class="glass reveal" style="padding:34px;">
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" placeholder="John Doe" required>
@@ -577,7 +528,6 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
       <a href="#portfolio">Portfolio</a>
       <a href="#contact">Contact</a>
     </div>
-    <a href="#home" class="back-top"><i class="fa-solid fa-arrow-up"></i></a>
   </div>
   <div class="footer-bottom">
     <p>© 2026 Redoan Edits. All rights reserved.</p>
@@ -586,64 +536,52 @@ footer{padding:60px 5% 30px;border-top:1px solid rgba(255,255,255,0.07);}
 </footer>
 
 <script>
-/* Preloader */
-window.addEventListener('load',()=>{
-  setTimeout(()=>{document.getElementById('preloader').classList.add('hide');},600);
+/* Preloader Remove */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const loader = document.getElementById('preloader');
+    if(loader) loader.classList.add('hide');
+  }, 300);
 });
 
 /* Custom Cursor */
-const dot=document.getElementById('cursorDot');
-const ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx=0, my=0, rx=0, ry=0;
+window.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  if(dot) { dot.style.left = mx+'px'; dot.style.top = my+'px'; }
+});
 function animateRing(){
-  rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
-  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  rx += (mx-rx)*0.15; ry += (my-ry)*0.15;
+  if(ring) { ring.style.left = rx+'px'; ring.style.top = ry+'px'; }
   requestAnimationFrame(animateRing);
 }
 animateRing();
 
-/* Mobile menu */
-const burger=document.getElementById('burger');
-const mobileMenu=document.getElementById('mobileMenu');
-burger.addEventListener('click',()=>{
-  mobileMenu.classList.toggle('open');
-  burger.classList.toggle('open');
-});
-document.querySelectorAll('.mobile-menu a').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.remove('open')));
+/* Mobile Menu */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+if(burger && mobileMenu){
+  burger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+}
 
-/* CMS Live Sync Script */
+/* CMS Content Sync */
 async function syncCMS() {
   try {
-    // 1. Hero Data Sync
-    const heroRes = await fetch('/content/hero.json');
-    if(heroRes.ok) {
-      const hero = await heroRes.json();
-      if(hero.hero_tag) document.getElementById('heroTag').innerHTML = `<span class="dot"></span> ` + hero.hero_tag;
-      if(hero.hero_title) {
-        let titleHtml = hero.hero_title;
-        if(hero.hero_title_highlight) {
-          titleHtml = titleHtml.replace(hero.hero_title_highlight, `<span class="highlight">${hero.hero_title_highlight}</span>`);
-        }
-        document.getElementById('heroTitle').innerHTML = titleHtml;
-      }
-      if(hero.hero_subtitle) document.getElementById('heroSub').innerText = hero.hero_subtitle;
-    }
-
-    // 2. Site / Profile Photo & Logo Sync
-    const siteRes = await fetch('/content/site.json');
-    if(siteRes.ok) {
+    const siteRes = await fetch('/content/site.json').catch(() => null);
+    if(siteRes && siteRes.ok) {
       const site = await siteRes.json();
-      
-      // Update Hero Image / Profile Photo
-      if(site.profile_photo || site.logo) {
+      const photo = site.profile_photo || site.logo;
+      if(photo) {
         const logoImg = document.getElementById('siteLogo');
-        if(logoImg) {
-          logoImg.src = site.profile_photo || site.logo;
-        }
+        const aboutImg = document.getElementById('aboutProfileImg');
+        if(logoImg) logoImg.src = photo;
+        if(aboutImg) aboutImg.src = photo;
       }
-      
-      // Update Site Name / Text Logo
       if(site.site_title || site.logo_text) {
         document.querySelectorAll('.logo').forEach(el => {
           el.innerHTML = (site.site_title || site.logo_text) + '<span>.</span>';
@@ -651,7 +589,7 @@ async function syncCMS() {
       }
     }
   } catch(e) {
-    console.log("CMS Syncing...");
+    console.log("CMS load skipped or running locally");
   }
 }
 document.addEventListener('DOMContentLoaded', syncCMS);
