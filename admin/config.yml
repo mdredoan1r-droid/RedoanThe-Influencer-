@@ -19,52 +19,52 @@ collections:
         label: "General Settings & Navigation"
         name: "general"
         fields:
-          - { label: "Website Tab Title", name: "site_title", widget: "string", default: "Redoan - Video Editor & Motion Graphics" }
+          - { label: "Website Tab Title", name: "site_title", widget: "string", required: false }
           - { label: "Logo Image", name: "logo", widget: "image", required: false }
-          - { label: "Logo Text / Brand Name", name: "logo_text", widget: "string", default: "REDOAN." }
-          - { label: "Navigation Links", name: "nav_links", widget: "list", fields: [
-              { label: "Label", name: "label", widget: "string" },
-              { label: "Target ID/Link (e.g. #about)", name: "link", widget: "string" }
+          - { label: "Logo Text / Brand Name", name: "logo_text", widget: "string", required: false }
+          - { label: "Navigation Links", name: "nav_links", widget: "list", required: false, fields: [
+              { label: "Label", name: "label", widget: "string", required: false },
+              { label: "Target ID/Link (e.g. #about)", name: "link", widget: "string", required: false }
             ]}
-          - { label: "Nav CTA Button Text", name: "nav_cta_text", widget: "string", default: "Hire Me" }
-          - { label: "Nav CTA Button Link", name: "nav_cta_link", widget: "string", default: "#contact" }
+          - { label: "Nav CTA Button Text", name: "nav_cta_text", widget: "string", required: false }
+          - { label: "Nav CTA Button Link", name: "nav_cta_link", widget: "string", required: false }
 
       - file: "content/hero.json"
         label: "Hero Section (Main Banner)"
         name: "hero"
         fields:
-          - { label: "Tag Text", name: "hero_tag", widget: "string", default: "Available for freelance projects" }
-          - { label: "Main Headline / Title", name: "hero_title", widget: "string", default: "Transforming Raw Footage Into High-Retention Stories." }
-          - { label: "Highlighted Word(s)", name: "hero_title_highlight", widget: "string", default: "High-Retention" }
-          - { label: "Subheading / Description", name: "hero_subtitle", widget: "text" }
-          - { label: "Primary Button Text", name: "btn_primary_text", widget: "string", default: "View Portfolio" }
-          - { label: "Primary Button Link", name: "btn_primary_link", widget: "string", default: "#portfolio" }
-          - { label: "Secondary Button Text", name: "btn_secondary_text", widget: "string", default: "Hire Me" }
-          - { label: "Secondary Button Link", name: "btn_secondary_link", widget: "string", default: "#contact" }
+          - { label: "Tag Text", name: "hero_tag", widget: "string", required: false }
+          - { label: "Main Headline / Title", name: "hero_title", widget: "string", required: false }
+          - { label: "Highlighted Word(s)", name: "hero_title_highlight", widget: "string", required: false }
+          - { label: "Subheading / Description", name: "hero_subtitle", widget: "text", required: false }
+          - { label: "Primary Button Text", name: "btn_primary_text", widget: "string", required: false }
+          - { label: "Primary Button Link", name: "btn_primary_link", widget: "string", required: false }
+          - { label: "Secondary Button Text", name: "btn_secondary_text", widget: "string", required: false }
+          - { label: "Secondary Button Link", name: "btn_secondary_link", widget: "string", required: false }
 
       - file: "content/about.json"
         label: "About Me Section"
         name: "about"
         fields:
-          - { label: "Section Badge Title", name: "badge", widget: "string", default: "ABOUT ME" }
-          - { label: "Headline Title", name: "title", widget: "string", default: "Crafting Visual Experiences That Engage & Convert" }
-          - { label: "Profile Photo", name: "profile_image", widget: "image" }
-          - { label: "Detailed Bio / Description", name: "description", widget: "markdown" }
-          - { label: "Key Highlights / Skills Badges", name: "skills", widget: "list", field: { label: "Skill / Badge", name: "skill", widget: "string" } }
-          - { label: "Statistics (Counters)", name: "stats", widget: "list", fields: [
-              { label: "Number / Value (e.g. 500+)", name: "number", widget: "string" },
-              { label: "Label (e.g. Videos Edited)", name: "label", widget: "string" }
+          - { label: "Section Badge Title", name: "badge", widget: "string", required: false }
+          - { label: "Headline Title", name: "title", widget: "string", required: false }
+          - { label: "Profile Photo", name: "profile_image", widget: "image", required: false }
+          - { label: "Detailed Bio / Description", name: "description", widget: "markdown", required: false }
+          - { label: "Key Highlights / Skills Badges", name: "skills", widget: "list", required: false, field: { label: "Skill / Badge", name: "skill", widget: "string", required: false } }
+          - { label: "Statistics (Counters)", name: "stats", widget: "list", required: false, fields: [
+              { label: "Number / Value (e.g. 500+)", name: "number", widget: "string", required: false },
+              { label: "Label (e.g. Videos Edited)", name: "label", widget: "string", required: false }
             ]}
 
       - file: "content/services.json"
         label: "Services Section"
         name: "services"
         fields:
-          - { label: "Section Badge", name: "badge", widget: "string", default: "SERVICES" }
-          - { label: "Section Title", name: "title", widget: "string", default: "What I Do Best" }
-          - { label: "Services List", name: "items", widget: "list", fields: [
-              { label: "Service Title", name: "title", widget: "string" },
-              { label: "Short Description", name: "description", widget: "text" },
+          - { label: "Section Badge", name: "badge", widget: "string", required: false }
+          - { label: "Section Title", name: "title", widget: "string", required: false }
+          - { label: "Services List", name: "items", widget: "list", required: false, fields: [
+              { label: "Service Title", name: "title", widget: "string", required: false },
+              { label: "Short Description", name: "description", widget: "text", required: false },
               { label: "Icon Class / Name", name: "icon", widget: "string", required: false }
             ]}
 
@@ -72,16 +72,16 @@ collections:
         label: "Contact & Footer Info"
         name: "contact"
         fields:
-          - { label: "Contact Section Title", name: "title", widget: "string", default: "Let's Build Something Viral Together" }
-          - { label: "Contact Subtitle", name: "subtitle", widget: "text" }
-          - { label: "Email Address", name: "email", widget: "string" }
+          - { label: "Contact Section Title", name: "title", widget: "string", required: false }
+          - { label: "Contact Subtitle", name: "subtitle", widget: "text", required: false }
+          - { label: "Email Address", name: "email", widget: "string", required: false }
           - { label: "WhatsApp / Phone", name: "phone", widget: "string", required: false }
-          - { label: "Location", name: "location", widget: "string", default: "Dhaka, Bangladesh" }
-          - { label: "Social Media Links", name: "socials", widget: "list", fields: [
-              { label: "Platform Name (e.g. YouTube, Facebook, Twitter)", name: "platform", widget: "string" },
-              { label: "URL / Profile Link", name: "url", widget: "string" }
+          - { label: "Location", name: "location", widget: "string", required: false }
+          - { label: "Social Media Links", name: "socials", widget: "list", required: false, fields: [
+              { label: "Platform Name (e.g. YouTube, Facebook, Twitter)", name: "platform", widget: "string", required: false },
+              { label: "URL / Profile Link", name: "url", widget: "string", required: false }
             ]}
-          - { label: "Footer Copyright Text", name: "footer_copy", widget: "string", default: "© 2026 Redoan. All rights reserved." }
+          - { label: "Footer Copyright Text", name: "footer_copy", widget: "string", required: false }
 
   # ==========================================
   # ২. পোর্টফোলিও প্রজেক্ট ও ক্যাটাগরি ম্যানেজার
@@ -92,14 +92,14 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Project Title", name: "title", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["Shorts & Reels", "YouTube Videos", "Gaming Edits", "Motion Graphics", "Color Grading"] }
-      - { label: "Thumbnail Image", name: "thumbnail", widget: "image" }
-      - { label: "Video URL / Embed Code", name: "video_url", widget: "string" }
+      - { label: "Project Title", name: "title", widget: "string", required: false }
+      - { label: "Category", name: "category", widget: "select", options: ["Shorts & Reels", "YouTube Videos", "Gaming Edits", "Motion Graphics", "Color Grading"], required: false }
+      - { label: "Thumbnail Image", name: "thumbnail", widget: "image", required: false }
+      - { label: "Video URL / Embed Code", name: "video_url", widget: "string", required: false }
       - { label: "Client Name", name: "client", widget: "string", required: false }
       - { label: "Description", name: "description", widget: "text", required: false }
       - { label: "Featured on Homepage?", name: "featured", widget: "boolean", default: true }
-      - { label: "Date Added", name: "date", widget: "datetime" }
+      - { label: "Date Added", name: "date", widget: "datetime", required: false }
 
   # ==========================================
   # ৩. ক্লায়েন্ট রিভিউ ও টেস্টিনোনিয়ালস
@@ -110,8 +110,8 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Client Name", name: "name", widget: "string" }
-      - { label: "Designation / Channel Name", name: "role", widget: "string" }
+      - { label: "Client Name", name: "name", widget: "string", required: false }
+      - { label: "Designation / Channel Name", name: "role", widget: "string", required: false }
       - { label: "Avatar / Photo", name: "avatar", widget: "image", required: false }
-      - { label: "Review Message", name: "comment", widget: "text" }
-      - { label: "Rating (1 to 5)", name: "rating", widget: "number", default: 5, value_type: "int" }
+      - { label: "Review Message", name: "comment", widget: "text", required: false }
+      - { label: "Rating (1 to 5)", name: "rating", widget: "number", default: 5, value_type: "int", required: false }
