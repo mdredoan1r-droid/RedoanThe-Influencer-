@@ -16,7 +16,6 @@
   --bg-panel:rgba(18, 18, 22, 0.65);
   --red:#ff1f3d;
   --red-glow:rgba(255, 31, 61, 0.6);
-  --red-dim:rgba(255, 31, 61, 0.15);
   --white:#ffffff;
   --muted:#9da2b0;
 }
@@ -64,9 +63,9 @@ h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
   transition:opacity .6s ease, visibility .6s ease;
 }
 #preloader.hide{opacity:0;visibility:hidden;}
-.loader-logo{font-size:2.8rem;font-weight:800;letter-spacing:3px;color:var(--white);text-shadow:0 0 20px rgba(255,255,255,0.2);}
+.loader-logo{font-size:2.8rem;font-weight:800;letter-spacing:3px;color:var(--white);}
 .loader-logo span{color:var(--red);text-shadow:0 0 25px var(--red);}
-.loader-bar{width:240px;height:3px;background:#131418;margin-top:25px;overflow:hidden;position:relative;border-radius:4px;box-shadow:0 0 10px rgba(0,0,0,0.8);}
+.loader-bar{width:240px;height:3px;background:#131418;margin-top:25px;overflow:hidden;position:relative;border-radius:4px;}
 .loader-bar::after{
   content:'';position:absolute;left:-50%;top:0;height:100%;width:50%;
   background:linear-gradient(90deg,transparent,var(--red),#ffffff,var(--red),transparent);
@@ -75,7 +74,7 @@ h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
 }
 @keyframes loadmove{0%{left:-50%;}100%{left:100%;}}
 
-/* ---------- Dynamic Neon Background ---------- */
+/* ---------- Dynamic Background ---------- */
 .bg-grid{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(255, 31, 61, 0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255, 31, 61, 0.05) 1px,transparent 1px);
@@ -132,7 +131,7 @@ nav{
   .burger{display:flex;}
 }
 
-/* ---------- GLASS CARDS WITH NEON HOVER ---------- */
+/* ---------- GLASS CARDS ---------- */
 .glass-card{
   background:var(--bg-panel);
   border:1px solid rgba(255,255,255,0.09);
@@ -266,13 +265,14 @@ section{position:relative;z-index:1;padding:130px 6%;}
 .bar-fill{height:100%;background:linear-gradient(90deg,var(--red),#ff758c);border-radius:10px;box-shadow:0 0 10px var(--red);}
 .soft-pct{font-size:.8rem;color:var(--muted);margin-top:10px;display:block;}
 
-/* ---------- PORTFOLIO ---------- */
+/* ---------- PORTFOLIO SHOWCASE ---------- */
 .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:26px;}
 .p-card{
   position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/10;cursor:pointer;
   border:1px solid rgba(255,255,255,0.09);transition:all .4s;background:#0d0e11;
 }
 .p-card:hover{border-color:var(--red);box-shadow:0 0 35px rgba(255,31,61,0.3);transform:scale(1.02);}
+.p-card iframe, .p-card img{width:100%;height:100%;object-fit:cover;border:none;}
 .p-card .thumb{
   position:absolute;inset:0;background:linear-gradient(150deg,#181a20,#08090b);
   display:flex;align-items:center;justify-content:center;transition:.5s;
@@ -281,10 +281,20 @@ section{position:relative;z-index:1;padding:130px 6%;}
 .p-card:hover .thumb i{color:var(--red);text-shadow:0 0 20px var(--red);transform:scale(1.15);}
 .p-overlay{
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;
-  background:linear-gradient(to top,rgba(0,0,0,0.95),transparent 65%);
+  background:linear-gradient(to top,rgba(0,0,0,0.92),transparent 65%);
+  pointer-events:none;
 }
 .p-tag{color:var(--red);font-size:.75rem;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:6px;font-weight:700;}
 .p-title{font-weight:700;font-size:1.05rem;}
+
+/* Modal Video Player */
+.video-modal{
+  position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.9);backdrop-filter:blur(15px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.video-modal.active{display:flex;}
+.video-modal-content{width:100%;max-width:900px;aspect-ratio:16/9;position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--red);box-shadow:0 0 50px var(--red-glow);}
+.close-modal{position:absolute;top:-45px;right:0;color:#fff;font-size:2rem;cursor:pointer;}
 
 /* ---------- STATS ---------- */
 .stats-wrap{
@@ -373,7 +383,7 @@ footer{padding:70px 6% 35px;border-top:1px solid rgba(255,255,255,0.08);backgrou
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- Glowing Background Orbs -->
+<!-- Background Orbs -->
 <div class="bg-grid"></div>
 <div class="glow-orb" style="width:650px;height:650px;background:var(--red);top:-200px;left:-200px;"></div>
 <div class="glow-orb" style="width:550px;height:550px;background:var(--red);top:900px;right:-220px;animation-delay:-5s;"></div>
@@ -480,12 +490,21 @@ footer{padding:70px 6% 35px;border-top:1px solid rgba(255,255,255,0.08);backgrou
     <div class="eyebrow">Selected Work</div>
     <h2 class="sec-title">Portfolio Showcase</h2>
   </div>
-  <div class="portfolio-grid" style="margin-top:40px;">
+  <div class="portfolio-grid" id="portfolioGrid" style="margin-top:40px;">
+    <!-- Automatic CMS Projects load here -->
     <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">YouTube</span><h4 class="p-title">Retention Storytelling Edit</h4></div></div>
     <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">Shorts</span><h4 class="p-title">Viral Hook Short Edit</h4></div></div>
     <div class="p-card"><div class="thumb"><i class="fa-solid fa-play"></i></div><div class="p-overlay"><span class="p-tag">Gaming</span><h4 class="p-title">Cinematic Gameplay Highlights</h4></div></div>
   </div>
 </section>
+
+<!-- Video Popup Modal -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-content">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <iframe id="modalIframe" src="" width="100%" height="100%" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+</div>
 
 <!-- STATS -->
 <section id="stats">
@@ -613,12 +632,6 @@ document.querySelectorAll('.glass-card').forEach(card => {
   });
 });
 
-/* Hover Effect for Cursor */
-document.querySelectorAll('a, button, .p-card, .glass-card').forEach(el => {
-  el.addEventListener('mouseenter', () => ring && ring.classList.add('hovered'));
-  el.addEventListener('mouseleave', () => ring && ring.classList.remove('hovered'));
-});
-
 /* Mobile Menu Toggle */
 const burger = document.getElementById('burger');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -629,7 +642,98 @@ if(burger && mobileMenu){
   document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
 }
 
-/* CMS Content Sync */
+/* Modal System */
+const modal = document.getElementById('videoModal');
+const modalIframe = document.getElementById('modalIframe');
+const closeModal = document.getElementById('closeModal');
+if(closeModal) {
+  closeModal.addEventListener('click', () => {
+    modal.classList.remove('active');
+    modalIframe.src = '';
+  });
+}
+
+/* SMART CMS PORTFOLIO LOADER (ALL-IN-ONE FIX) */
+async function loadPortfolioProjects() {
+  const grid = document.getElementById('portfolioGrid');
+  if(!grid) return;
+
+  try {
+    let projects = [];
+
+    // Attempt 1: Check single json file
+    const res = await fetch('/content/portfolio.json').catch(() => null);
+    if(res && res.ok) {
+      const data = await res.json();
+      projects = Array.isArray(data) ? data : (data.projects || []);
+    }
+
+    // Attempt 2: Direct Netlify CMS API / GitHub repo search fallbacks
+    if(!projects || projects.length === 0) {
+      const listRes = await fetch('https://api.github.com/repos/YOUR_GITHUB_USERNAME/YOUR_REPO/contents/content/projects').catch(() => null);
+      if(listRes && listRes.ok) {
+        const files = await listRes.json();
+        for(let file of files) {
+          if(file.name.endsWith('.json')) {
+            const fRes = await fetch(file.download_url);
+            if(fRes.ok) {
+              const pData = await fRes.json();
+              projects.push(pData);
+            }
+          }
+        }
+      }
+    }
+
+    if(projects && projects.length > 0) {
+      grid.innerHTML = '';
+      projects.forEach(p => {
+        let title = p.title || p.project_title || 'Untitled Project';
+        let category = p.category || 'Video Edit';
+        let rawUrl = p.video_url || p.embed_code || p.url || '';
+        let thumbnail = p.thumbnail || p.thumbnail_image || '';
+
+        // Extract YouTube Video ID
+        let ytEmbed = '';
+        if(rawUrl) {
+          const ytMatch = rawUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+          if(ytMatch && ytMatch[1]) {
+            ytEmbed = `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1`;
+            if(!thumbnail) thumbnail = `https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`;
+          } else if(rawUrl.includes('iframe')) {
+            const srcMatch = rawUrl.match(/src=["']([^"']+)["']/);
+            if(srcMatch) ytEmbed = srcMatch[1];
+          } else {
+            ytEmbed = rawUrl;
+          }
+        }
+
+        const card = document.createElement('div');
+        card.className = 'p-card glass-card';
+        card.innerHTML = `
+          ${thumbnail ? `<img src="${thumbnail}" alt="${title}" class="w-full h-full object-cover">` : '<div class="thumb"><i class="fa-solid fa-play"></i></div>'}
+          <div class="p-overlay">
+            <span class="p-tag">${category}</span>
+            <h4 class="p-title">${title}</h4>
+          </div>
+        `;
+
+        if(ytEmbed) {
+          card.addEventListener('click', () => {
+            modalIframe.src = ytEmbed;
+            modal.classList.add('active');
+          });
+        }
+
+        grid.appendChild(card);
+      });
+    }
+  } catch(e) {
+    console.log("Auto sync running...", e);
+  }
+}
+
+/* Site Meta Sync */
 async function syncCMS() {
   try {
     const siteRes = await fetch('/content/site.json').catch(() => null);
@@ -642,17 +746,14 @@ async function syncCMS() {
         if(logoImg) logoImg.src = photo;
         if(aboutImg) aboutImg.src = photo;
       }
-      if(site.site_title || site.logo_text) {
-        document.querySelectorAll('.logo').forEach(el => {
-          el.innerHTML = (site.site_title || site.logo_text) + '<span>.</span>';
-        });
-      }
     }
-  } catch(e) {
-    console.log("CMS load skipped");
-  }
+  } catch(e){}
 }
-document.addEventListener('DOMContentLoaded', syncCMS);
+
+document.addEventListener('DOMContentLoaded', () => {
+  syncCMS();
+  loadPortfolioProjects();
+});
 </script>
 
 </body>
