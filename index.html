@@ -259,6 +259,11 @@ section{position:relative;z-index:1;padding:110px 6%;}
 <section id="about" data-aos="fade-up">
   <div class="about-wrap">
     <div class="relative rounded-2xl overflow-hidden border border-red-500/30 bg-black/40 aspect-square flex items-center justify-center shadow-[0_0_30px_rgba(255,31,61,0.2)]">
+      <!-- 
+        ছবি/লোগো ফিক্স: 
+        আপনার logo.png ফাইলটি যদি ফোল্ডারের ভেতরে থাকে তাহলে ডিরেক্টরি অনুযায়ী নিচে /assets/images/logo.png দিতে পারেন।
+        আমি এখানে আপনার আগের logo.png রেখেছি, তবে ফাইলটি না পেলে একটা সুন্দর ডিফল্ট নিনজা আইকন শো করবে।
+      -->
       <img src="logo.png" alt="Redoan Avatar" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\'text-center p-6\'><i class=\'fa-solid fa-user-ninja text-6xl text-red-500 mb-3\'></i><h3 class=\'font-bold text-xl text-white\'>REDOAN</h3><p class=\'text-xs text-red-400 tracking-widest uppercase mt-1\'>Video Editor & Motion Designer</p></div>';">
     </div>
     <div>
@@ -275,7 +280,7 @@ section{position:relative;z-index:1;padding:110px 6%;}
   </div>
 </section>
 
-<!-- SERVICES SECTION (6 CARDS) -->
+<!-- SERVICES SECTION -->
 <section id="services">
   <div class="text-center" data-aos="fade-up">
     <div class="eyebrow">Services</div>
@@ -322,11 +327,11 @@ section{position:relative;z-index:1;padding:110px 6%;}
     <h2 class="sec-title">Portfolio Showcase</h2>
   </div>
   <div class="portfolio-grid mt-10" id="portfolioGrid">
-    <!-- Loaded dynamically -->
+    <!-- Loaded dynamically from CMS -->
   </div>
 </section>
 
-<!-- VIDEO MODAL PLAYER (WITH CLOSE BUTTON & BACKDROP ESCAPE) -->
+<!-- VIDEO MODAL PLAYER -->
 <div class="video-modal" id="videoModal">
   <div class="video-modal-content">
     <button class="close-modal-btn" id="closeModal" title="Close Video"><i class="fa-solid fa-xmark"></i></button>
@@ -356,7 +361,7 @@ section{position:relative;z-index:1;padding:110px 6%;}
   </div>
 </section>
 
-<!-- REVIEWS / TESTIMONIALS (2 Foreign + 1 BD) -->
+<!-- REVIEWS / TESTIMONIALS -->
 <section id="reviews" data-aos="fade-up">
   <div class="text-center">
     <div class="eyebrow">Testimonials</div>
@@ -509,37 +514,44 @@ window.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') closeModal();
 });
 
-// Portfolio Loader (Loads Netlify CMS JSON cleanly)
+// Portfolio Loader (Loads Netlify CMS JSON cleanly without Cache issues)
 async function initPortfolio() {
   const grid = document.getElementById('portfolioGrid');
   if(!grid) return;
 
   let items = [];
   try {
-    const res = await fetch('/content/portfolio.json');
+    // Cache buster: ?t= timestamp যুক্ত করা হয়েছে যাতে ব্রাউজার সবসময় নতুন ডাটা টেনে আনে
+    const timestamp = new Date().getTime();
+    const res = await fetch(`/content/portfolio.json?t=${timestamp}`);
+    
     if(res.ok) {
       const data = await res.json();
-      items = Array.isArray(data) ? data : (data.projects || []);
+      // আপনার config.yml অনুযায়ী লিস্টটির নাম "projects" 
+      items = data.projects || [];
     }
-  } catch(e){}
+  } catch(e) {
+    console.error("Fetch error:", e);
+  }
 
-  // Fallback project if CMS file is empty or not yet published
-  if(!items.length) {
-    items = [
-      { title: 'Retention Storytelling Edit', category: 'YouTube', video_url: 'https://www.youtube.com/embed/CQZx1fn0lmE' }
-    ];
+  // যদি এডমিন প্যানেলে কোনো প্রোজেক্ট না থাকে
+  if(!items || items.length === 0) {
+    grid.innerHTML = '<p class="text-center text-gray-500 col-span-full py-10">No portfolio items found. Please add from Admin Panel.</p>';
+    return;
   }
 
   grid.innerHTML = '';
   items.forEach((item, i) => {
-    const title = item.title || item.project_title || 'Featured Edit';
+    const title = item.title || 'Featured Edit';
     const cat = item.category || 'Video Edit';
-    const rawUrl = item.video_url || item.url || item.embed_code || '';
+    const rawUrl = item.video_url || '';
     
     let embed = '';
     let ytId = '';
+    
     if(rawUrl) {
-      const m = rawUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+      // Shorts এবং Regular Youtube লিংকের পারফেক্ট ফিক্স
+      const m = rawUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/i);
       if(m && m[1]) {
         ytId = m[1];
         embed = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
@@ -548,15 +560,19 @@ async function initPortfolio() {
       }
     }
 
-    const thumb = item.thumbnail || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '');
+    // CMS থেকে ছবি দিলে সেটা পাবে, না দিলে YouTube থেকে অটো থাম্বনেইল নিবে
+    let thumb = item.thumbnail;
+    if (!thumb && ytId) {
+      thumb = `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
+    }
 
     const card = document.createElement('div');
     card.className = 'p-card glass-card';
     card.setAttribute('data-aos', 'fade-up');
-    card.setAttribute('data-aos-delay', (i * 100).toString());
+    card.setAttribute('data-aos-delay', (i * 50).toString());
 
     card.innerHTML = `
-      ${thumb ? `<img src="${thumb}" alt="${title}">` : '<div class="thumb"><i class="fa-solid fa-play"></i></div>'}
+      ${thumb ? `<img src="${thumb}" alt="${title}" class="w-full h-full object-cover">` : '<div class="thumb"><i class="fa-solid fa-play"></i></div>'}
       <div class="p-overlay">
         <span class="p-tag">${cat}</span>
         <h4 class="p-title">${title}</h4>
@@ -565,8 +581,10 @@ async function initPortfolio() {
 
     card.addEventListener('click', () => {
       if(embed) {
-        iframe.src = embed;
-        modal.classList.add('active');
+        if(modal && iframe) {
+          iframe.src = embed;
+          modal.classList.add('active');
+        }
       }
     });
 
