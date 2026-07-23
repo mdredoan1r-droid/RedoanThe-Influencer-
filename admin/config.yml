@@ -6,19 +6,14 @@ media_folder: "assets/images"
 public_folder: "/assets/images"
 
 collections:
-  - name: "site_data"
+  - name: "projects"
     label: "Projects & Portfolio"
-    files:
-      - file: "content/portfolio.json"
-        label: "All Portfolio Items"
-        name: "projects_list"
-        fields:
-          - label: "Projects List"
-            name: "projects"
-            widget: "list"
-            fields:
-              - {label: "Project Title", name: "title", widget: "string"}
-              - {label: "Category", name: "category", widget: "select", options: ["YouTube Editing", "Shorts & Reels", "Gaming Montages", "Motion Graphics", "Color Grading"], default: "Shorts & Reels"}
-              - {label: "Video URL / Shorts Link", name: "video_url", widget: "string"}
-              - {label: "Custom Thumbnail Image (Optional)", name: "thumbnail", widget: "image", required: false}
-              - {label: "Description (Optional)", name: "description", widget: "text", required: false}
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Project Title", name: "title", widget: "string"}
+      - {label: "Category", name: "category", widget: "select", options: ["YouTube Editing", "Shorts & Reels", "Gaming Montages", "Motion Graphics", "Color Grading"], default: "Shorts & Reels"}
+      - {label: "Video URL / Shorts Link", name: "video_url", widget: "string"}
+      - {label: "Custom Thumbnail Image (Optional)", name: "thumbnail", widget: "image", required: false}
+      - {label: "Description (Optional)", name: "description", widget: "text", required: false}
