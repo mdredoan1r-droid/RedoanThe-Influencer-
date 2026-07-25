@@ -322,7 +322,7 @@ section{position:relative;z-index:1;padding:110px 6%;}
     <h2 class="sec-title">Portfolio Showcase</h2>
   </div>
   <div class="portfolio-grid mt-10" id="portfolioGrid">
-    <!-- Loaded dynamically -->
+    <!-- Dynamic Items will load here -->
   </div>
 </section>
 
@@ -499,42 +499,52 @@ document.getElementById('closeModal')?.addEventListener('click', closeModal);
 modal?.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
 
-// Portfolio Loader for Folder-based Markdown Content
+// DYNAMIC PORTFOLIO LOADER (GitHub API Powered)
 async function initPortfolio() {
   const grid = document.getElementById('portfolioGrid');
   if(!grid) return;
 
-  // আপনার content/projects ফোল্ডারে থাকা ৪টি ফাইলের লিস্ট
-  const projectSlugs = [
-    'bd-clients-project',
-    'motion-graphic',
-    'retention-storytelling-edit',
-    'talking-head'
-  ];
+  // IMPORTANT: Ekhane tomar GitHub username ebong Repo Name boshabe
+  const GITHUB_USER = "YOUR_GITHUB_USERNAME"; 
+  const GITHUB_REPO = "YOUR_REPO_NAME"; 
 
   let items = [];
 
-  for (const slug of projectSlugs) {
-    try {
-      const res = await fetch(`/content/projects/${slug}.md?t=${new Date().getTime()}`);
-      if(res.ok) {
-        const text = await res.text();
-        
-        const titleMatch = text.match(/title:\s*["']?([^"'\n]+)["']?/);
-        const categoryMatch = text.match(/category:\s*["']?([^"'\n]+)["']?/);
-        const videoUrlMatch = text.match(/video_url:\s*["']?([^"'\n]+)["']?/);
-        const thumbMatch = text.match(/thumbnail:\s*["']?([^"'\n]+)["']?/);
+  try {
+    // 1. GitHub API Call to fetch list of files inside content/projects
+    const apiRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/content/projects?t=${new Date().getTime()}`);
+    
+    if (apiRes.ok) {
+      const files = await apiRes.json();
+      const mdFiles = files.filter(f => f.name.endsWith('.md'));
 
-        items.push({
-          title: titleMatch ? titleMatch[1] : 'Untitled Project',
-          category: categoryMatch ? categoryMatch[1] : 'Video Edit',
-          video_url: videoUrlMatch ? videoUrlMatch[1] : '',
-          thumbnail: thumbMatch ? thumbMatch[1] : ''
-        });
+      for (const file of mdFiles) {
+        try {
+          const res = await fetch(`${file.download_url}?t=${new Date().getTime()}`);
+          if(res.ok) {
+            const text = await res.text();
+            
+            const titleMatch = text.match(/title:\s*["']?([^"'\n]+)["']?/);
+            const categoryMatch = text.match(/category:\s*["']?([^"'\n]+)["']?/);
+            const videoUrlMatch = text.match(/video_url:\s*["']?([^"'\n]+)["']?/);
+            const thumbMatch = text.match(/thumbnail:\s*["']?([^"'\n]+)["']?/);
+
+            items.push({
+              title: titleMatch ? titleMatch[1] : 'Untitled Project',
+              category: categoryMatch ? categoryMatch[1] : 'Video Edit',
+              video_url: videoUrlMatch ? videoUrlMatch[1] : '',
+              thumbnail: thumbMatch ? thumbMatch[1] : ''
+            });
+          }
+        } catch(err) {
+          console.error("Error reading file:", err);
+        }
       }
-    } catch(e) {
-      console.error("Error loading project:", e);
+    } else {
+      console.warn("GitHub API fetch failed, falling back to static fetch.");
     }
+  } catch(e) {
+    console.error("Error fetching projects directory:", e);
   }
 
   if(items.length === 0) {
