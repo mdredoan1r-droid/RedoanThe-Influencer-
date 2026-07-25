@@ -1,3 +1,11 @@
 {
-  "profile_image": "images/untitled-design.png"
+  "name": "Redoan",
+  "heading": "I'm Redoan — a storyteller behind the timeline.",
+  "description": "I'm a passionate video editor and motion graphics designer focused on retention-driven storytelling. I help YouTubers, gaming creators, and digital brands turn raw footage into viral hits with custom graphics, precise pacing, and punchy sound design.",
+  "skills": [
+    "Premiere Pro",
+    "After Effects",
+    "CapCut Pro",
+    "Sound Design"
+  ]
 }
