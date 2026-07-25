@@ -499,7 +499,7 @@ document.getElementById('closeModal')?.addEventListener('click', closeModal);
 modal?.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
 
-// DYNAMIC PORTFOLIO LOADER (GitHub API Powered)
+// DYNAMIC PORTFOLIO LOADER (API + Raw Direct Fallback)
 async function initPortfolio() {
   const grid = document.getElementById('portfolioGrid');
   if(!grid) return;
@@ -507,46 +507,62 @@ async function initPortfolio() {
   const GITHUB_USER = "mdredoan1r-droid"; 
   const GITHUB_REPO = "RedoanThe-Influencer-"; 
 
-  let items = [];
+  // Direct Known Files Fallback
+  const knownFiles = [
+    "motion-graphic-1.md",
+    "motion-graphic.md",
+    "retention-storytelling-edit.md",
+    "talking-head.md"
+  ];
+
+  let fileList = [];
 
   try {
-    const apiRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/content/projects?t=${new Date().getTime()}`);
-    
+    const apiRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/content/projects`);
     if (apiRes.ok) {
       const files = await apiRes.json();
-      const mdFiles = files.filter(f => f.name.endsWith('.md'));
-
-      for (const file of mdFiles) {
-        try {
-          const res = await fetch(`${file.download_url}?t=${new Date().getTime()}`);
-          if(res.ok) {
-            const text = await res.text();
-            
-            const titleMatch = text.match(/title:\s*["']?([^"'\n]+)["']?/);
-            const categoryMatch = text.match(/category:\s*["']?([^"'\n]+)["']?/);
-            const videoUrlMatch = text.match(/video_url:\s*["']?([^"'\n]+)["']?/);
-            const thumbMatch = text.match(/thumbnail:\s*["']?([^"'\n]+)["']?/);
-
-            items.push({
-              title: titleMatch ? titleMatch[1] : 'Untitled Project',
-              category: categoryMatch ? categoryMatch[1] : 'Video Edit',
-              video_url: videoUrlMatch ? videoUrlMatch[1] : '',
-              thumbnail: thumbMatch ? thumbMatch[1] : ''
-            });
-          }
-        } catch(err) {
-          console.error("Error reading file:", err);
-        }
-      }
-    } else {
-      console.warn("GitHub API fetch failed, falling back to static fetch.");
+      fileList = files.filter(f => f.name.endsWith('.md')).map(f => f.name);
     }
   } catch(e) {
-    console.error("Error fetching projects directory:", e);
+    console.warn("GitHub API error, using direct fallback list.");
+  }
+
+  // If API rate limited or failed, use local list
+  if(fileList.length === 0) {
+    fileList = knownFiles;
+  }
+
+  let items = [];
+
+  for (const fileName of fileList) {
+    try {
+      const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/content/projects/${fileName}?v=${Date.now()}`;
+      const res = await fetch(rawUrl);
+      
+      if(res.ok) {
+        const text = await res.text();
+        
+        const titleMatch = text.match(/title:\s*["']?([^"'\r\n]+)["']?/);
+        const categoryMatch = text.match(/category:\s*["']?([^"'\r\n]+)["']?/);
+        const videoUrlMatch = text.match(/video_url:\s*["']?([^"'\r\n]+)["']?/);
+        const thumbMatch = text.match(/thumbnail:\s*["']?([^"'\r\n]+)["']?/);
+
+        if (titleMatch) {
+          items.push({
+            title: titleMatch[1].trim(),
+            category: categoryMatch ? categoryMatch[1].trim() : 'Video Edit',
+            video_url: videoUrlMatch ? videoUrlMatch[1].trim() : '',
+            thumbnail: thumbMatch ? thumbMatch[1].trim() : ''
+          });
+        }
+      }
+    } catch(err) {
+      console.error("Error reading project:", fileName, err);
+    }
   }
 
   if(items.length === 0) {
-    grid.innerHTML = '<p class="text-center text-gray-500 col-span-full py-10">No portfolio items found.</p>';
+    grid.innerHTML = '<p class="text-center text-gray-500 col-span-full py-10">No project items found.</p>';
     return;
   }
 
