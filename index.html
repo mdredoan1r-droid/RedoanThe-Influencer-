@@ -99,7 +99,7 @@ nav{
 }
 .nav-cta:hover{background:var(--red);color:#000;box-shadow:0 0 25px var(--red);transform:scale(1.04);}
 
-/* Glass Cards */
+/* Glass Cards & Animations */
 .glass-card{
   background:var(--bg-panel);
   border:1px solid rgba(255,255,255,0.09);
@@ -110,7 +110,7 @@ nav{
 .glass-card:hover{
   border-color:rgba(255,31,61,0.5);
   box-shadow:0 12px 35px rgba(0,0,0,0.8), 0 0 30px rgba(255,31,61,0.25);
-  transform:translateY(-5px);
+  transform:translateY(-6px);
 }
 
 section{position:relative;z-index:1;padding:110px 6%;}
@@ -162,7 +162,8 @@ section{position:relative;z-index:1;padding:110px 6%;}
   border:1px solid rgba(255,255,255,0.09);transition:all .35s;background:#0d0e11;
 }
 .p-card:hover{border-color:var(--red);box-shadow:0 0 30px rgba(255,31,61,0.3);transform:scale(1.02);}
-.p-card img{width:100%;height:100%;object-fit:cover;}
+.p-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;}
+.p-card:hover img{transform:scale(1.08);}
 .p-card .thumb{
   position:absolute;inset:0;background:linear-gradient(150deg,#181a20,#08090b);
   display:flex;align-items:center;justify-content:center;
@@ -255,6 +256,17 @@ section{position:relative;z-index:1;padding:110px 6%;}
   </div>
 </section>
 
+<!-- PORTFOLIO SHOWCASE -->
+<section id="portfolio" data-aos="fade-up">
+  <div class="text-center">
+    <div class="eyebrow">Selected Work</div>
+    <h2 class="sec-title">Portfolio Showcase</h2>
+  </div>
+  <div class="portfolio-grid mt-10" id="portfolioGrid">
+    <!-- Dynamic Items will load here -->
+  </div>
+</section>
+
 <!-- ABOUT SECTION -->
 <section id="about" data-aos="fade-up">
   <div class="about-wrap">
@@ -276,8 +288,8 @@ section{position:relative;z-index:1;padding:110px 6%;}
 </section>
 
 <!-- SERVICES SECTION -->
-<section id="services">
-  <div class="text-center" data-aos="fade-up">
+<section id="services" data-aos="fade-up">
+  <div class="text-center">
     <div class="eyebrow">Services</div>
     <h2 class="sec-title">What I Offer</h2>
   </div>
@@ -312,17 +324,6 @@ section{position:relative;z-index:1;padding:110px 6%;}
       <h3 class="text-xl font-bold mb-2">Sound Design & Mixing</h3>
       <p class="text-gray-400 text-sm">Crisp audio cleanup, immersive sound effects, EQ balancing, and background music sync.</p>
     </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO SHOWCASE -->
-<section id="portfolio">
-  <div class="text-center" data-aos="fade-up">
-    <div class="eyebrow">Selected Work</div>
-    <h2 class="sec-title">Portfolio Showcase</h2>
-  </div>
-  <div class="portfolio-grid mt-10" id="portfolioGrid">
-    <!-- Dynamic Items will load here -->
   </div>
 </section>
 
@@ -457,34 +458,6 @@ window.addEventListener('mousemove', e => {
 
 try { AOS.init({ duration: 800, once: true }); } catch(e){}
 
-const counterElements = document.querySelectorAll('.counter');
-let counterDone = false;
-
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting && !counterDone) {
-      counterDone = true;
-      counterElements.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        let current = 0;
-        const increment = Math.ceil(target / 35);
-        const timer = setInterval(() => {
-          current += increment;
-          if(current >= target) {
-            counter.innerText = target + "+";
-            clearInterval(timer);
-          } else {
-            counter.innerText = current + "+";
-          }
-        }, 35);
-      });
-    }
-  });
-}, { threshold: 0.3 });
-
-const statsSection = document.getElementById('stats');
-if(statsSection) counterObserver.observe(statsSection);
-
 const modal = document.getElementById('videoModal');
 const iframe = document.getElementById('modalIframe');
 
@@ -499,7 +472,7 @@ document.getElementById('closeModal')?.addEventListener('click', closeModal);
 modal?.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
 
-// DYNAMIC PORTFOLIO LOADER (API + Raw Direct Fallback)
+// DYNAMIC PORTFOLIO LOADER
 async function initPortfolio() {
   const grid = document.getElementById('portfolioGrid');
   if(!grid) return;
@@ -507,30 +480,12 @@ async function initPortfolio() {
   const GITHUB_USER = "mdredoan1r-droid"; 
   const GITHUB_REPO = "RedoanThe-Influencer-"; 
 
-  // Direct Known Files Fallback
-  const knownFiles = [
+  const fileList = [
     "motion-graphic-1.md",
     "motion-graphic.md",
     "retention-storytelling-edit.md",
     "talking-head.md"
   ];
-
-  let fileList = [];
-
-  try {
-    const apiRes = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/content/projects`);
-    if (apiRes.ok) {
-      const files = await apiRes.json();
-      fileList = files.filter(f => f.name.endsWith('.md')).map(f => f.name);
-    }
-  } catch(e) {
-    console.warn("GitHub API error, using direct fallback list.");
-  }
-
-  // If API rate limited or failed, use local list
-  if(fileList.length === 0) {
-    fileList = knownFiles;
-  }
 
   let items = [];
 
@@ -561,11 +516,6 @@ async function initPortfolio() {
     }
   }
 
-  if(items.length === 0) {
-    grid.innerHTML = '<p class="text-center text-gray-500 col-span-full py-10">No project items found.</p>';
-    return;
-  }
-
   grid.innerHTML = '';
   items.forEach((item, i) => {
     const title = item.title;
@@ -593,7 +543,7 @@ async function initPortfolio() {
     const card = document.createElement('div');
     card.className = 'p-card glass-card';
     card.setAttribute('data-aos', 'fade-up');
-    card.setAttribute('data-aos-delay', (i * 50).toString());
+    card.setAttribute('data-aos-delay', (i * 100).toString());
 
     card.innerHTML = `
       ${thumb ? `<img src="${thumb}" alt="${title}" class="w-full h-full object-cover">` : '<div class="thumb"><i class="fa-solid fa-play"></i></div>'}
@@ -612,6 +562,9 @@ async function initPortfolio() {
 
     grid.appendChild(card);
   });
+
+  // Re-trigger AOS animations for dynamically created cards!
+  try { AOS.refresh(); } catch(e){}
 }
 
 document.addEventListener('DOMContentLoaded', initPortfolio);
