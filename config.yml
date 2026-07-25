@@ -2,17 +2,112 @@ backend:
   name: git-gateway
   branch: main
 
+publish_mode: simple
+
 media_folder: "images"
 public_folder: "/images"
 
 collections:
+
+  # ==========================
+  # Portfolio Projects
+  # ==========================
   - name: "portfolio"
     label: "Projects"
     folder: "content/portfolio"
     create: true
-    slug: "{{slug}}"
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{title}}"
+
     fields:
-      - {label: "Category", name: "cat", widget: "select", options: ["Influencer Edits", "Shorts/Reels", "Gaming Videos", "Fantasy Edits", "Promotional Ads", "Motion Graphics"]}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Icon Class", name: "icon", widget: "string", default: "fa-play"}
-      - {label: "YouTube Video URL", name: "videoUrl", widget: "string"}
+      - label: "Category"
+        name: "cat"
+        widget: "select"
+        options:
+          - "Influencer Edits"
+          - "Shorts/Reels"
+          - "Gaming Videos"
+          - "Fantasy Edits"
+          - "Promotional Ads"
+          - "Motion Graphics"
+
+      - label: "Project Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Icon Class"
+        name: "icon"
+        widget: "string"
+        default: "fa-solid fa-play"
+
+      - label: "YouTube Video URL"
+        name: "videoUrl"
+        widget: "string"
+
+      - label: "Thumbnail"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        required: false
+
+  # ==========================
+  # Hero Section
+  # ==========================
+  - name: "hero"
+    label: "Hero"
+
+    files:
+      - file: "content/hero.json"
+        label: "Hero Section"
+        name: "hero"
+
+        fields:
+          - {label: "Badge", name: "badge", widget: "string"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Highlight", name: "highlight", widget: "string"}
+          - {label: "Subtitle", name: "subtitle", widget: "text"}
+
+  # ==========================
+  # About
+  # ==========================
+  - name: "about"
+    label: "About"
+
+    files:
+      - file: "content/about.json"
+        label: "About Section"
+        name: "about"
+
+        fields:
+          - {label: "Name", name: "name", widget: "string"}
+          - {label: "Heading", name: "heading", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
+
+          - label: "Skills"
+            name: "skills"
+            widget: "list"
+
+  # ==========================
+  # Site Settings
+  # ==========================
+  - name: "site"
+    label: "Site Settings"
+
+    files:
+      - file: "content/site.json"
+        label: "Website Settings"
+        name: "site"
+
+        fields:
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "WhatsApp", name: "whatsapp", widget: "string"}
+          - {label: "Facebook", name: "facebook", widget: "string", required: false}
+          - {label: "Instagram", name: "instagram", widget: "string", required: false}
+          - {label: "YouTube", name: "youtube", widget: "string", required: false}
+          - {label: "LinkedIn", name: "linkedin", widget: "string", required: false}
