@@ -9,53 +9,77 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
+    :root {
+      --primary: #ff0055;
+      --primary-glow: rgba(255, 0, 85, 0.4);
+      --bg: #080808;
+      --card-bg: #121212;
+      --border: #222222;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: #080808; color: #ffffff; line-height: 1.6; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg); color: #ffffff; line-height: 1.6; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
     
+    /* Keyframe Animations */
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 15px rgba(255, 0, 85, 0.2); }
+      50% { box-shadow: 0 0 30px rgba(255, 0, 85, 0.6); }
+      100% { box-shadow: 0 0 15px rgba(255, 0, 85, 0.2); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Navbar */
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #0d0d0d; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #1a1a1a; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(13, 13, 13, 0.85); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
     .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-    .logo span { color: #ff0055; }
+    .logo span { color: var(--primary); }
     nav ul { display: flex; list-style: none; gap: 25px; }
     nav ul a { font-size: 14px; font-weight: 500; color: #ccc; transition: 0.3s; }
-    nav ul a:hover { color: #ff0055; }
-    .btn-hire { background: #ff0055; padding: 8px 22px; border-radius: 20px; font-weight: 600; font-size: 14px; transition: 0.3s; }
-    .btn-hire:hover { background: #d40045; }
+    nav ul a:hover { color: var(--primary); }
+    .btn-hire { background: var(--primary); padding: 8px 22px; border-radius: 20px; font-weight: 600; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 4px 15px var(--primary-glow); }
+    .btn-hire:hover { background: #d40045; transform: translateY(-2px); }
 
     /* Hero Section */
-    .hero { padding: 100px 8% 80px; text-align: center; background: radial-gradient(circle at top, #200510 0%, #080808 70%); }
-    .badge { display: inline-block; background: rgba(255,0,85,0.1); color: #ff0055; padding: 6px 16px; border-radius: 20px; font-size: 13px; margin-bottom: 20px; border: 1px solid rgba(255,0,85,0.2); }
-    .hero h1 { font-size: 48px; font-weight: 800; max-width: 800px; margin: 0 auto 20px; }
-    .hero h1 span { color: #ff0055; }
+    .hero { padding: 120px 8% 90px; text-align: center; background: radial-gradient(circle at top, #2b0514 0%, var(--bg) 70%); animation: fadeInUp 0.8s ease-out; }
+    .badge { display: inline-block; background: rgba(255,0,85,0.1); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-size: 13px; margin-bottom: 20px; border: 1px solid rgba(255,0,85,0.2); }
+    .hero h1 { font-size: 52px; font-weight: 800; max-width: 850px; margin: 0 auto 20px; line-height: 1.2; }
+    .hero h1 span { color: var(--primary); }
     .hero p { color: #aaa; max-width: 600px; margin: 0 auto 30px; font-size: 16px; }
     .hero-btns { display: flex; gap: 15px; justify-content: center; }
-    .btn-secondary { border: 1px solid #333; padding: 10px 24px; border-radius: 20px; font-weight: 600; }
+    .btn-secondary { border: 1px solid #333; padding: 10px 24px; border-radius: 20px; font-weight: 600; transition: 0.3s; }
+    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
 
     /* General Sections */
-    section { padding: 80px 8%; }
+    section { padding: 90px 8%; }
     .section-title { text-align: center; margin-bottom: 50px; }
-    .section-title div { color: #ff0055; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
-    .section-title h2 { font-size: 36px; font-weight: 800; margin-top: 5px; }
+    .section-title div { color: var(--primary); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+    .section-title h2 { font-size: 38px; font-weight: 800; margin-top: 5px; }
 
-    /* Portfolio Section Grid */
-    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-    .portfolio-card { background: #121212; border-radius: 16px; padding: 16px; border: 1px solid #222; transition: transform 0.3s ease, border-color 0.3s ease; }
-    .portfolio-card:hover { transform: translateY(-5px); border-color: #ff0055; }
-    .cat-tag { background: rgba(255,0,85,0.15); color: #ff0055; display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; margin-bottom: 12px; border: 1px solid rgba(255,0,85,0.3); }
-    .video-wrapper { position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden; border-radius: 10px; background: #000; }
+    /* Portfolio Animated Grid */
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; }
+    .portfolio-card { background: var(--card-bg); border-radius: 18px; padding: 18px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; animation: fadeInUp 0.6s ease-out forwards; }
+    .portfolio-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--primary); box-shadow: 0 10px 30px rgba(255, 0, 85, 0.25); }
+    
+    .cat-tag { background: rgba(255,0,85,0.15); color: var(--primary); display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 12px; border: 1px solid rgba(255,0,85,0.3); }
+    .video-wrapper { position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden; border-radius: 12px; background: #000; }
     .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-    .card-title { color: #fff; font-size: 17px; margin: 14px 0 4px 0; font-weight: 700; }
+    .card-title { color: #fff; font-size: 18px; margin: 15px 0 4px 0; font-weight: 700; }
     .card-client { color: #888; font-size: 13px; }
 
     /* Services Grid */
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .service-card { background: #111; padding: 25px; border-radius: 12px; border: 1px solid #222; }
+    .service-card { background: #111; padding: 30px; border-radius: 16px; border: 1px solid var(--border); transition: 0.3s; }
+    .service-card:hover { border-color: var(--primary); transform: translateY(-5px); }
     .service-card h3 { margin: 10px 0; color: #fff; }
     .service-card p { color: #888; font-size: 14px; }
 
     /* Footer */
-    footer { text-align: center; padding: 30px; background: #0a0a0a; border-top: 1px solid #1a1a1a; color: #666; font-size: 14px; }
+    footer { text-align: center; padding: 30px; background: #0a0a0a; border-top: 1px solid var(--border); color: #666; font-size: 14px; }
   </style>
 </head>
 <body>
@@ -75,7 +99,7 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="badge"><i class="fa-solid fa-circle" style="font-size: 8px;"></i> Available for freelance projects</div>
+    <div class="badge"><i class="fa-solid fa-circle" style="font-size: 8px; margin-right: 5px;"></i> Available for freelance projects</div>
     <h1>Transforming Raw Footage Into <span>High-Retention Stories.</span></h1>
     <p>Professional Video Editing, Motion Graphics, and Short-form Content engineered for growth.</p>
     <div class="hero-btns">
@@ -109,8 +133,8 @@
     </div>
   </section>
 
-  <!-- Dynamic Portfolio Showcase Section -->
-  <section id="portfolio" style="background: #0d0d0d;">
+  <!-- Dynamic Animated Portfolio Section -->
+  <section id="portfolio" style="background: #0b0b0b;">
     <div class="section-title">
       <div>Selected Work</div>
       <h2>Portfolio Showcase</h2>
@@ -118,7 +142,6 @@
 
     <!-- Video Grid -->
     <div id="portfolio-grid" class="portfolio-grid">
-      <!-- Direct Fallback / Initial Videos -->
       <div class="portfolio-card">
         <span class="cat-tag">Shorts & Reels</span>
         <div class="video-wrapper">
@@ -153,8 +176,8 @@
       <h2>Let's Work Together</h2>
     </div>
     <div style="text-align: center; color: #ccc;">
-      <p style="margin-bottom: 10px;"><i class="fa-brands fa-whatsapp" style="color: #ff0055;"></i> WhatsApp: 01874552116</p>
-      <p><i class="fa-solid fa-envelope" style="color: #ff0055;"></i> Email: mdredoan1r@gmail.com</p>
+      <p style="margin-bottom: 12px; font-size: 18px;"><i class="fa-brands fa-whatsapp" style="color: var(--primary); margin-right: 8px;"></i> WhatsApp: 01874552116</p>
+      <p style="font-size: 18px;"><i class="fa-solid fa-envelope" style="color: var(--primary); margin-right: 8px;"></i> Email: mdredoan1r@gmail.com</p>
     </div>
   </section>
 
@@ -163,7 +186,7 @@
     <p>© 2026 Redoan. All rights reserved.</p>
   </footer>
 
-  <!-- Admin / CMS Dynamic Fetching Script -->
+  <!-- Admin / Dynamic Script -->
   <script>
     async function fetchCMSProjects() {
       const projectFiles = [
