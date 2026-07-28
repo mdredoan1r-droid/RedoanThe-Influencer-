@@ -1,242 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>REDOAN | Video Editor & Motion Designer</title>
-  
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/style.css">
-
-  <style>
-    /* Custom Redoan Theme Glow & Portfolio Card Animations */
-    :root {
-      --primary: #ff0055;
-      --primary-glow: rgba(255, 0, 85, 0.4);
-    }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .portfolio-card {
-      background: #121212;
-      border-radius: 16px;
-      padding: 18px;
-      border: 1px solid #222222;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .portfolio-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(255, 0, 85, 0.3);
-    }
-
-    .cat-tag {
-      background: rgba(255, 0, 85, 0.15);
-      color: var(--primary);
-      display: inline-block;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 14px;
-      border: 1px solid rgba(255, 0, 85, 0.3);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 177.77%; /* Vertical 9:16 Aspect Ratio for Shorts/Reels */
-      height: 0;
-      overflow: hidden;
-      border-radius: 12px;
-      background: #000;
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .card-title {
-      color: #ffffff;
-      font-size: 18px;
-      margin: 16px 0 4px 0;
-      font-weight: 700;
-    }
-
-    .card-client {
-      color: #888888;
-      font-size: 13px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redoan - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="logo">REDOAN<span>.</span></div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a href="#contact" class="btn-hire">Hire Me</a>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-container">
-      <div class="badge"><i class="fa-solid fa-circle pulse-dot"></i> Available for freelance projects</div>
-      <h1>Transforming Raw Footage Into <span>High-Retention Stories.</span></h1>
-      <p>Professional Video Editing, Motion Graphics, and Short-form Content engineered for growth.</p>
-      <div class="hero-btns">
-        <a href="#portfolio" class="btn-primary"><i class="fa-solid fa-play"></i> View Portfolio</a>
-        <a href="#contact" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="about-section">
-    <div class="container">
-      <div class="section-title">
-        <span>About Me</span>
-        <h2>I'm Redoan — a storyteller behind the timeline.</h2>
-      </div>
-      <p class="about-text">I'm a passionate video editor and motion graphics designer focused on retention-driven storytelling. I help YouTubers, gaming creators, and digital brands turn raw footage into viral hits with custom graphics, precise pacing, and punchy sound design.</p>
-      <div class="skills-tags">
-        <span>Premiere Pro</span>
-        <span>After Effects</span>
-        <span>CapCut Pro</span>
-        <span>Sound Design</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section id="services" class="services-section">
-    <div class="container">
-      <div class="section-title">
-        <span>Services</span>
-        <h2>What I Offer</h2>
-      </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="icon"><i class="fa-solid fa-video"></i></div>
-          <h3>YouTube Video Editing</h3>
-          <p>High-retention storytelling, pacing, animated graphics & custom sound design built for watch time.</p>
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <img id="site-logo" src="images/86853317-aa1e-4aa2-9d8d-d59bbc9168d6.png" alt="Redoan Logo">
         </div>
-        <div class="service-card">
-          <div class="icon"><i class="fa-solid fa-mobile-screen"></i></div>
-          <h3>Shorts, Reels & TikTok</h3>
-          <p>Fast-paced, hook-driven vertical content designed for rapid viral growth across platforms.</p>
-        </div>
-        <div class="service-card">
-          <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
-          <h3>Gaming Montages</h3>
-          <p>High-energy edits, funny moments, sound effects & dramatic cinematic gameplay highlights.</p>
-        </div>
-        <div class="service-card">
-          <div class="icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-          <h3>Motion Graphics & VFX</h3>
-          <p>Custom lower thirds, title openers, kinetic typography, and smooth visual effects.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <nav>
+            <ul>
+                <li><a href="#hero">হোম</a></li>
+                <li><a href="#about">আমার সম্পর্কে</a></li>
+                <li><a href="#portfolio">পোর্টফোলিও</a></li>
+                <li><a href="#contact">যোগাযোগ</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- Portfolio Section (With Video Dynamic Fallback) -->
-  <section id="portfolio" class="portfolio-section">
-    <div class="container">
-      <div class="section-title">
-        <span>Selected Work</span>
-        <h2>Portfolio Showcase</h2>
-      </div>
-
-      <!-- Video Grid -->
-      <div id="portfolio-grid" class="portfolio-grid">
-        <!-- 1. Robert Reel -->
-        <div class="portfolio-card">
-          <span class="cat-tag">Shorts & Reels</span>
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/AmnjZTCSnYQ" allowfullscreen></iframe>
-          </div>
-          <div class="card-title">Robert Client Project</div>
-          <div class="card-client">Client: Robert</div>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <span class="badge" id="hero-tag">Assalamu Alaikum</span>
+            <h1 class="glitch-text">আমি রেদোয়ান</h1>
+            <p class="subtitle">ভিডিও এডিটর & মোশন গ্রাফিক্স ডিজাইনার</p>
+            <div class="hero-buttons">
+                <a href="#portfolio" class="btn btn-primary">কাজ দেখুন</a>
+                <a href="#contact" class="btn btn-secondary">যোগাযোগ করুন</a>
+            </div>
         </div>
+    </section>
 
-        <!-- 2. Motion Graphics -->
-        <div class="portfolio-card">
-          <span class="cat-tag">Motion Graphics</span>
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/UGMhEXKxCUI" allowfullscreen></iframe>
-          </div>
-          <div class="card-title">Motion Graphics Showcase</div>
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container" data-aos="fade-right" data-aos-duration="1000">
+            <h2>আমার সম্পর্কে</h2>
+            <p>আমি কনটেন্ট ক্রিয়েটরদের জন্য হাই-রিটেনশন ভিডিও এডিটিং, মোশন গ্রাফিক্স এবং ভিজ্যুয়াল স্টোরিটেলিং নিয়ে কাজ করি।</p>
         </div>
+    </section>
 
-        <!-- 3. Low Budget Reel -->
-        <div class="portfolio-card">
-          <span class="cat-tag">Shorts & Reels</span>
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/RTKsIPolTRM" allowfullscreen></iframe>
-          </div>
-          <div class="card-title">Highest Low Budget Reel (60Tk)</div>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="container">
+            <h2 data-aos="fade-down">আমার প্রজেক্টসমূহ</h2>
+            <div class="portfolio-grid" id="projects-grid">
+                <!-- Javascript will load project cards dynamicly or rendered below -->
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card-badge">Motion Graphics</div>
+                    <h3>Motion Graphic Project 1</h3>
+                    <p>হাই-কোয়ালিটি মোশন অ্যানিমেশন এবং ভিজ্যুয়াল ইফেক্ট।</p>
+                </div>
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card-badge">Editing</div>
+                    <h3>Retention Storytelling Edit</h3>
+                    <p>অডিয়েন্স রিটেনশন বাড়ানোর জন্য বিশেষ এডিটিং স্টাইল।</p>
+                </div>
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="card-badge">Video</div>
+                    <h3>Talking Head Video</h3>
+                    <p>ক্লিন অডিও এবং এঙ্গেজিং সাবটাইটেল সহ টকিং হেড ভিডিও।</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact-section">
-    <div class="container">
-      <div class="section-title">
-        <span>Get In Touch</span>
-        <h2>Let's Work Together</h2>
-      </div>
-      <div class="contact-details">
-        <div class="contact-item">
-          <i class="fa-brands fa-whatsapp"></i>
-          <h4>WhatsApp</h4>
-          <p>01874552116</p>
-        </div>
-        <div class="contact-item">
-          <i class="fa-solid fa-envelope"></i>
-          <h4>Email</h4>
-          <p>mdredoan1r@gmail.com</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Redoan. All Rights Reserved.</p>
+    </footer>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Redoan. All rights reserved.</p>
-  </footer>
-
-  <!-- External JavaScript Files -->
-  <script src="script.js"></script>
-  <script src="js/main.js"></script>
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
