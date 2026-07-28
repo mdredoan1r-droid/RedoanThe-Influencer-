@@ -3,91 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>REDOAN | Portfolio</title>
+  <title>REDOAN | Video Editor & Motion Designer</title>
+  
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
+
   <style>
+    /* Custom Redoan Theme Glow & Portfolio Card Animations */
     :root {
       --primary: #ff0055;
       --primary-glow: rgba(255, 0, 85, 0.4);
-      --bg: #080808;
-      --card-bg: #121212;
-      --border: #222222;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    html { scroll-behavior: smooth; }
-    body { background-color: var(--bg); color: #ffffff; line-height: 1.6; overflow-x: hidden; }
-    a { text-decoration: none; color: inherit; }
-    
-    /* Keyframe Animations */
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 15px rgba(255, 0, 85, 0.2); }
-      50% { box-shadow: 0 0 30px rgba(255, 0, 85, 0.6); }
-      100% { box-shadow: 0 0 15px rgba(255, 0, 85, 0.2); }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .portfolio-card {
+      background: #121212;
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid #222222;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Navbar */
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(13, 13, 13, 0.85); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-    .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-    .logo span { color: var(--primary); }
-    nav ul { display: flex; list-style: none; gap: 25px; }
-    nav ul a { font-size: 14px; font-weight: 500; color: #ccc; transition: 0.3s; }
-    nav ul a:hover { color: var(--primary); }
-    .btn-hire { background: var(--primary); padding: 8px 22px; border-radius: 20px; font-weight: 600; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 4px 15px var(--primary-glow); }
-    .btn-hire:hover { background: #d40045; transform: translateY(-2px); }
+    .portfolio-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(255, 0, 85, 0.3);
+    }
 
-    /* Hero Section */
-    .hero { padding: 120px 8% 90px; text-align: center; background: radial-gradient(circle at top, #2b0514 0%, var(--bg) 70%); animation: fadeInUp 0.8s ease-out; }
-    .badge { display: inline-block; background: rgba(255,0,85,0.1); color: var(--primary); padding: 6px 16px; border-radius: 20px; font-size: 13px; margin-bottom: 20px; border: 1px solid rgba(255,0,85,0.2); }
-    .hero h1 { font-size: 52px; font-weight: 800; max-width: 850px; margin: 0 auto 20px; line-height: 1.2; }
-    .hero h1 span { color: var(--primary); }
-    .hero p { color: #aaa; max-width: 600px; margin: 0 auto 30px; font-size: 16px; }
-    .hero-btns { display: flex; gap: 15px; justify-content: center; }
-    .btn-secondary { border: 1px solid #333; padding: 10px 24px; border-radius: 20px; font-weight: 600; transition: 0.3s; }
-    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+    .cat-tag {
+      background: rgba(255, 0, 85, 0.15);
+      color: var(--primary);
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255, 0, 85, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-    /* General Sections */
-    section { padding: 90px 8%; }
-    .section-title { text-align: center; margin-bottom: 50px; }
-    .section-title div { color: var(--primary); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
-    .section-title h2 { font-size: 38px; font-weight: 800; margin-top: 5px; }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 177.77%; /* Vertical 9:16 Aspect Ratio for Shorts/Reels */
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #000;
+    }
 
-    /* Portfolio Animated Grid */
-    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; }
-    .portfolio-card { background: var(--card-bg); border-radius: 18px; padding: 18px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; animation: fadeInUp 0.6s ease-out forwards; }
-    .portfolio-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--primary); box-shadow: 0 10px 30px rgba(255, 0, 85, 0.25); }
-    
-    .cat-tag { background: rgba(255,0,85,0.15); color: var(--primary); display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 12px; border: 1px solid rgba(255,0,85,0.3); }
-    .video-wrapper { position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden; border-radius: 12px; background: #000; }
-    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-    .card-title { color: #fff; font-size: 18px; margin: 15px 0 4px 0; font-weight: 700; }
-    .card-client { color: #888; font-size: 13px; }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
 
-    /* Services Grid */
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .service-card { background: #111; padding: 30px; border-radius: 16px; border: 1px solid var(--border); transition: 0.3s; }
-    .service-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-    .service-card h3 { margin: 10px 0; color: #fff; }
-    .service-card p { color: #888; font-size: 14px; }
+    .card-title {
+      color: #ffffff;
+      font-size: 18px;
+      margin: 16px 0 4px 0;
+      font-weight: 700;
+    }
 
-    /* Footer */
-    footer { text-align: center; padding: 30px; background: #0a0a0a; border-top: 1px solid var(--border); color: #666; font-size: 14px; }
+    .card-client {
+      color: #888888;
+      font-size: 13px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav>
+  <!-- Navigation -->
+  <nav class="navbar">
     <div class="logo">REDOAN<span>.</span></div>
-    <ul>
+    <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
@@ -98,86 +106,127 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="badge"><i class="fa-solid fa-circle" style="font-size: 8px; margin-right: 5px;"></i> Available for freelance projects</div>
-    <h1>Transforming Raw Footage Into <span>High-Retention Stories.</span></h1>
-    <p>Professional Video Editing, Motion Graphics, and Short-form Content engineered for growth.</p>
-    <div class="hero-btns">
-      <a href="#portfolio" class="btn-hire"><i class="fa-solid fa-play"></i> View Portfolio</a>
-      <a href="#contact" class="btn-secondary"><i class="fa-solid fa-envelope"></i> Hire Me</a>
+  <section class="hero" id="home">
+    <div class="hero-container">
+      <div class="badge"><i class="fa-solid fa-circle pulse-dot"></i> Available for freelance projects</div>
+      <h1>Transforming Raw Footage Into <span>High-Retention Stories.</span></h1>
+      <p>Professional Video Editing, Motion Graphics, and Short-form Content engineered for growth.</p>
+      <div class="hero-btns">
+        <a href="#portfolio" class="btn-primary"><i class="fa-solid fa-play"></i> View Portfolio</a>
+        <a href="#contact" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
+      </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about">
-    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+  <section id="about" class="about-section">
+    <div class="container">
       <div class="section-title">
-        <div>About Me</div>
+        <span>About Me</span>
         <h2>I'm Redoan — a storyteller behind the timeline.</h2>
       </div>
-      <p style="color: #aaa; margin-bottom: 20px;">I'm a passionate video editor and motion graphics designer focused on retention-driven storytelling. I help YouTubers, gaming creators, and digital brands turn raw footage into viral hits with custom graphics, precise pacing, and punchy sound design.</p>
+      <p class="about-text">I'm a passionate video editor and motion graphics designer focused on retention-driven storytelling. I help YouTubers, gaming creators, and digital brands turn raw footage into viral hits with custom graphics, precise pacing, and punchy sound design.</p>
+      <div class="skills-tags">
+        <span>Premiere Pro</span>
+        <span>After Effects</span>
+        <span>CapCut Pro</span>
+        <span>Sound Design</span>
+      </div>
     </div>
   </section>
 
   <!-- Services Section -->
-  <section id="services">
-    <div class="section-title">
-      <div>Services</div>
-      <h2>What I Offer</h2>
-    </div>
-    <div class="services-grid">
-      <div class="service-card"><h3>YouTube Video Editing</h3><p>High-retention storytelling, pacing, animated graphics & custom sound design.</p></div>
-      <div class="service-card"><h3>Shorts, Reels & TikTok</h3><p>Fast-paced, hook-driven vertical content designed for rapid viral growth.</p></div>
-      <div class="service-card"><h3>Gaming Montages</h3><p>High-energy edits, sound effects & dramatic cinematic gameplay highlights.</p></div>
-      <div class="service-card"><h3>Motion Graphics & VFX</h3><p>Custom lower thirds, title openers, kinetic typography, and visual effects.</p></div>
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="section-title">
+        <span>Services</span>
+        <h2>What I Offer</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon"><i class="fa-solid fa-video"></i></div>
+          <h3>YouTube Video Editing</h3>
+          <p>High-retention storytelling, pacing, animated graphics & custom sound design built for watch time.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="fa-solid fa-mobile-screen"></i></div>
+          <h3>Shorts, Reels & TikTok</h3>
+          <p>Fast-paced, hook-driven vertical content designed for rapid viral growth across platforms.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
+          <h3>Gaming Montages</h3>
+          <p>High-energy edits, funny moments, sound effects & dramatic cinematic gameplay highlights.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <h3>Motion Graphics & VFX</h3>
+          <p>Custom lower thirds, title openers, kinetic typography, and smooth visual effects.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Dynamic Animated Portfolio Section -->
-  <section id="portfolio" style="background: #0b0b0b;">
-    <div class="section-title">
-      <div>Selected Work</div>
-      <h2>Portfolio Showcase</h2>
-    </div>
-
-    <!-- Video Grid -->
-    <div id="portfolio-grid" class="portfolio-grid">
-      <div class="portfolio-card">
-        <span class="cat-tag">Shorts & Reels</span>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/AmnjZTCSnYQ" allowfullscreen></iframe>
-        </div>
-        <div class="card-title">Robert Client Project</div>
-        <div class="card-client">Client: Robert</div>
+  <!-- Portfolio Section (With Video Dynamic Fallback) -->
+  <section id="portfolio" class="portfolio-section">
+    <div class="container">
+      <div class="section-title">
+        <span>Selected Work</span>
+        <h2>Portfolio Showcase</h2>
       </div>
 
-      <div class="portfolio-card">
-        <span class="cat-tag">Motion Graphics</span>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/UGMhEXKxCUI" allowfullscreen></iframe>
+      <!-- Video Grid -->
+      <div id="portfolio-grid" class="portfolio-grid">
+        <!-- 1. Robert Reel -->
+        <div class="portfolio-card">
+          <span class="cat-tag">Shorts & Reels</span>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/AmnjZTCSnYQ" allowfullscreen></iframe>
+          </div>
+          <div class="card-title">Robert Client Project</div>
+          <div class="card-client">Client: Robert</div>
         </div>
-        <div class="card-title">Motion Graphics Showcase</div>
-      </div>
 
-      <div class="portfolio-card">
-        <span class="cat-tag">Shorts & Reels</span>
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/RTKsIPolTRM" allowfullscreen></iframe>
+        <!-- 2. Motion Graphics -->
+        <div class="portfolio-card">
+          <span class="cat-tag">Motion Graphics</span>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/UGMhEXKxCUI" allowfullscreen></iframe>
+          </div>
+          <div class="card-title">Motion Graphics Showcase</div>
         </div>
-        <div class="card-title">Highest Low Budget Reel (60Tk)</div>
+
+        <!-- 3. Low Budget Reel -->
+        <div class="portfolio-card">
+          <span class="cat-tag">Shorts & Reels</span>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/RTKsIPolTRM" allowfullscreen></iframe>
+          </div>
+          <div class="card-title">Highest Low Budget Reel (60Tk)</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact">
-    <div class="section-title">
-      <div>Get In Touch</div>
-      <h2>Let's Work Together</h2>
-    </div>
-    <div style="text-align: center; color: #ccc;">
-      <p style="margin-bottom: 12px; font-size: 18px;"><i class="fa-brands fa-whatsapp" style="color: var(--primary); margin-right: 8px;"></i> WhatsApp: 01874552116</p>
-      <p style="font-size: 18px;"><i class="fa-solid fa-envelope" style="color: var(--primary); margin-right: 8px;"></i> Email: mdredoan1r@gmail.com</p>
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-title">
+        <span>Get In Touch</span>
+        <h2>Let's Work Together</h2>
+      </div>
+      <div class="contact-details">
+        <div class="contact-item">
+          <i class="fa-brands fa-whatsapp"></i>
+          <h4>WhatsApp</h4>
+          <p>01874552116</p>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <h4>Email</h4>
+          <p>mdredoan1r@gmail.com</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -186,67 +235,8 @@
     <p>© 2026 Redoan. All rights reserved.</p>
   </footer>
 
-  <!-- Admin / Dynamic Script -->
-  <script>
-    async function fetchCMSProjects() {
-      const projectFiles = [
-        'content/projects/reels-robert.md',
-        'content/projects/motion-graphics.md',
-        'content/projects/low-budget-reel.md',
-        'content/projects/retention-storytelling-edit.md'
-      ];
-
-      const grid = document.getElementById('portfolio-grid');
-      let loadedHtml = '';
-
-      for (let file of projectFiles) {
-        try {
-          const res = await fetch('/' + file);
-          if (!res.ok) continue;
-          const text = await res.text();
-
-          const getMeta = (regex) => {
-            const m = text.match(regex);
-            return m ? (m[1] || m[2]).trim().replace(/^['"]|['"]$/g, '') : '';
-          };
-
-          const title = getMeta(/title:\s*"(.*?)"|title:\s*(.*)/) || 'Video Edit';
-          const category = getMeta(/category:\s*"(.*?)"|category:\s*(.*)/) || 'Shorts & Reels';
-          const url = getMeta(/video_url:\s*"(.*?)"|video_url:\s*(.*)/);
-          const client = getMeta(/client:\s*"(.*?)"|client:\s*(.*)/);
-
-          if (!url) continue;
-
-          let embedUrl = url;
-          if (url.includes('shorts/')) {
-            embedUrl = 'https://www.youtube.com/embed/' + url.split('shorts/')[1].split('?')[0];
-          } else if (url.includes('youtu.be/')) {
-            embedUrl = 'https://www.youtube.com/embed/' + url.split('youtu.be/')[1].split('?')[0];
-          } else if (url.includes('v=')) {
-            embedUrl = 'https://www.youtube.com/embed/' + url.split('v=')[1].split('&')[0];
-          }
-
-          loadedHtml += `
-            <div class="portfolio-card">
-              <span class="cat-tag">${category}</span>
-              <div class="video-wrapper">
-                <iframe src="${embedUrl}" allowfullscreen></iframe>
-              </div>
-              <div class="card-title">${title}</div>
-              ${client ? `<div class="card-client">Client: ${client}</div>` : ''}
-            </div>
-          `;
-        } catch (e) {
-          console.log("Fetch error for " + file, e);
-        }
-      }
-
-      if (loadedHtml !== '') {
-        grid.innerHTML = loadedHtml;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", fetchCMSProjects);
-  </script>
+  <!-- External JavaScript Files -->
+  <script src="script.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
