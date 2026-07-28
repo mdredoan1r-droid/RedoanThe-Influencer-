@@ -2,151 +2,18 @@ backend:
   name: git-gateway
   branch: main
 
-publish_mode: editorial_workflow
-
-media_folder: "assets/images"
-public_folder: "/assets/images"
-
-site_url: "/"
-logo_url: "/logo.png"
+media_folder: "images"
+public_folder: "/images"
 
 collections:
-
-# ===========================
-# HERO
-# ===========================
-
-  - name: "hero"
-    label: "Hero Section"
-    files:
-      - file: "content/hero.json"
-        label: "Hero"
-        name: "hero"
-        fields:
-          - {label: "Badge", name: "badge", widget: "string"}
-          - {label: "Title", name: "title", widget: "string"}
-          - {label: "Highlight", name: "highlight", widget: "string"}
-          - {label: "Subtitle", name: "subtitle", widget: "text"}
-
-# ===========================
-# ABOUT
-# ===========================
-
-  - name: "about"
-    label: "About"
-    files:
-      - file: "content/about.json"
-        label: "About"
-        name: "about"
-        fields:
-
-          - {label: "Name", name: "name", widget: "string"}
-
-          - {label: "Heading", name: "heading", widget: "string"}
-
-          - {label: "Description", name: "description", widget: "text"}
-
-          - label: Skills
-            name: skills
-            widget: list
-
-# ===========================
-# SITE SETTINGS
-# ===========================
-
-  - name: "site"
-    label: "Site Settings"
-
-    files:
-
-      - file: "content/site.json"
-
-        label: "Site"
-
-        name: "site"
-
-        fields:
-
-          - {label: "Whatsapp", name: "whatsapp", widget: "string"}
-
-          - {label: "Email", name: "email", widget: "string"}
-
-          - {label: "Facebook", name: "facebook", widget: "string", required: false}
-
-          - {label: "Instagram", name: "instagram", widget: "string", required: false}
-
-          - {label: "YouTube", name: "youtube", widget: "string", required: false}
-
-          - {label: "LinkedIn", name: "linkedin", widget: "string", required: false}
-
-# ===========================
-# PORTFOLIO
-# ===========================
-
   - name: "projects"
-
-    label: "Portfolio"
-
+    label: "Projects & Portfolio"
     folder: "content/projects"
-
     create: true
-
-    delete: true
-
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-
-    fields:
-
-      - label: Project Title
-        name: title
-        widget: string
-
-      - label: Category
-        name: category
-        widget: select
-        options:
-          - YouTube Editing
-          - Shorts & Reels
-          - Gaming Montages
-          - Motion Graphics
-          - Color Grading
-
-      - label: Video URL
-        name: video_url
-        widget: string
-
-      - label: Thumbnail
-        name: thumbnail
-        widget: image
-        required: false
-
-      - label: Description
-        name: description
-        widget: text
-        required: false
-
-# ===========================
-# REVIEWS
-# ===========================
-
-  - name: "reviews"
-
-    label: "Reviews"
-
-    folder: "content/reviews"
-
-    create: true
-
-    delete: true
-
     slug: "{{slug}}"
-
     fields:
-
-      - {label: Client Name, name: name, widget: string}
-
-      - {label: Country, name: country, widget: string}
-
-      - {label: Review, name: review, widget: text}
-
-      - {label: Rating, name: rating, widget: number}
+      - {label: "Project Title", name: "title", widget: "string"}
+      - {label: "Category", name: "category", widget: "select", options: ["Shorts & Reels", "YouTube Editing", "Gaming Montages", "Motion Graphics", "Color Grading"], default: "Shorts & Reels"}
+      - {label: "Video URL / Shorts Link", name: "video_url", widget: "string"}
+      - {label: "Client Name (Optional)", name: "client", widget: "string", required: false}
+      - {label: "Featured", name: "featured", widget: "boolean", default: true}
