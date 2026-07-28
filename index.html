@@ -1,24 +1,27 @@
 <!-- Selected Work / Portfolio Section -->
-<section id="portfolio">
-  <div class="container">
-    <div class="section-title">
-      <div>Selected Work</div>
-      <h2>Portfolio Showcase</h2>
+<section id="portfolio" style="padding: 80px 0; background-color: #0b0b0b; color: #ffffff;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="section-title" style="text-align: center; margin-bottom: 50px;">
+      <div style="color: #ff0055; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Selected Work</div>
+      <h2 style="font-size: 42px; font-weight: 800; margin-top: 10px;">Portfolio Showcase</h2>
     </div>
 
-    <!-- Portfolio Grid Container -->
-    <div id="portfolio-grid" class="portfolio-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
-      <!-- Dynamic Videos will load here -->
+    <!-- Dynamic Portfolio Grid Container -->
+    <div id="portfolio-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+      <!-- JavaScript will load videos dynamically here -->
     </div>
   </div>
 </section>
 
+<!-- Auto-loading Script for Admin/CMS Markdown Projects -->
 <script>
   async function loadPortfolioProjects() {
+    // Admin Panel dynamic loading list
     const projectFiles = [
       'content/projects/reels-robert.md',
       'content/projects/motion-graphics.md',
-      'content/projects/low-budget-reel.md'
+      'content/projects/low-budget-reel.md',
+      'content/projects/retention-storytelling-edit.md'
     ];
 
     const grid = document.getElementById('portfolio-grid');
@@ -31,7 +34,7 @@
         if (!response.ok) continue;
         const text = await response.text();
 
-        // Frontmatter Parsing
+        // Helper to extract frontmatter metadata
         const getMeta = (regex) => {
           const match = text.match(regex);
           return match ? (match[1] || match[2]).trim().replace(/^['"]|['"]$/g, '') : '';
@@ -40,8 +43,11 @@
         const title = getMeta(/title:\s*"(.*?)"|title:\s*(.*)/) || 'Video Project';
         const category = getMeta(/category:\s*"(.*?)"|category:\s*(.*)/) || 'Shorts & Reels';
         const url = getMeta(/video_url:\s*"(.*?)"|video_url:\s*(.*)/);
-        const client = getMeta(/client:\s*"(.*?)"|client:\s*(.*)/);
+        const client = getMeta(/client:\_"(.*?)"|client:\s*(.*)/);
 
+        if (!url) continue;
+
+        // Process YouTube URL into Embed Format
         let embedUrl = url;
         if (url.includes('youtube.com/shorts/')) {
           const videoId = url.split('shorts/')[1].split('?')[0];
@@ -49,21 +55,27 @@
         } else if (url.includes('youtu.be/')) {
           const videoId = url.split('youtu.be/')[1].split('?')[0];
           embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        } else if (url.includes('watch?v=')) {
+          const videoId = url.split('v=')[1].split('&')[0];
+          embedUrl = `https://www.youtube.com/embed/${videoId}`;
         }
 
-        const card = `
-          <div class="portfolio-card" style="background: #181818; border-radius: 12px; overflow: hidden; padding: 15px; border: 1px solid #222;">
-            <div style="background: #ff0055; color: #fff; display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 10px;">${category}</div>
-            <div style="position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden; border-radius: 8px;">
+        // Render project card
+        const cardHtml = `
+          <div style="background: #141414; border-radius: 16px; overflow: hidden; padding: 16px; border: 1px solid #222222; transition: transform 0.3s ease;">
+            <div style="background: rgba(255, 0, 85, 0.15); color: #ff0055; display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 12px; border: 1px solid rgba(255, 0, 85, 0.3);">
+              ${category}
+            </div>
+            <div style="position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden; border-radius: 10px; background: #000;">
               <iframe src="${embedUrl}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
             </div>
-            <h3 style="color: #fff; font-size: 16px; margin: 12px 0 5px 0;">${title}</h3>
-            ${client ? `<p style="color: #888; font-size: 13px; margin: 0;">Client: ${client}</p>` : ''}
+            <h3 style="color: #ffffff; font-size: 18px; margin: 15px 0 5px 0; font-weight: 600;">${title}</h3>
+            ${client ? `<p style="color: #aaaaaa; font-size: 13px; margin: 0;">Client: ${client}</p>` : ''}
           </div>
         `;
-        grid.innerHTML += card;
+        grid.innerHTML += cardHtml;
       } catch (err) {
-        console.error("Error loading project file:", err);
+        console.error("Project fetch error:", err);
       }
     }
   }
